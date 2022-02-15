@@ -176,15 +176,15 @@
                         <div class="col-sm-8">
                             <h2>File Archive <b>Lists</b></h2>
 
-                            
+
                         </div>
-                        
-                        <div class="col-sm-4">
+
+                        <!-- <div class="col-sm-4">
                             <div class="search-box">
                                 <i class="material-icons">&#xE8B6;</i>
                                 <input type="text" id="search" name="search" class="form-control bg-white text-muted" placeholder="Search&hellip;">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <table class="table table-striped table-hover table-bordered">
@@ -236,7 +236,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -279,6 +279,6 @@
                 fetch_archive_data(query);
             });
         });
-    </script>
+    </script> -->
 
     @endsection

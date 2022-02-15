@@ -21,7 +21,7 @@ class FileArchiveController extends Controller
     }
     public function allArchive()
     {
-        $archives = FileArchive::where('user_id', auth()->user()->id)->paginate(10);
+        $archives = FileArchive::where('user_id', auth()->user()->id)->orderBy('project_name')->paginate(10);
         return view('file_archive.archive_list', compact('archives'));
     }
     public function allArchiveAdmin()
@@ -79,50 +79,50 @@ class FileArchiveController extends Controller
         $id = FileArchive::findOrFail($file);
         return Storage::download($id->file_path, $id->file_name);
     }
-    public function search(Request $request)
-    {
+    // public function search(Request $request)
+    // {
 
-        if ($request->ajax()) {
-            $output = '';
-            $query = $request->get('query');
+    //     if ($request->ajax()) {
+    //         $output = '';
+    //         $query = $request->get('query');
 
-            if ($query != '') {
-                $dataDB = FileArchive::where('project_name', 'like', '%' . strtolower($query) . '%')->paginate(10);
-            } else {
-                $dataDB = FileArchive::where('department_id', auth()->user()->department_id)->paginate(10);
-            }
+    //         if ($query != '') {
+    //             $dataDB = FileArchive::where('project_name', 'like', '%' . strtolower($query) . '%')->paginate(10);
+    //         } else {
+    //             $dataDB = FileArchive::where('department_id', auth()->user()->department_id)->paginate(10);
+    //         }
 
-            $total_row = $dataDB->count();
-            if ($total_row > 0) {
-                foreach ($dataDB as $loop => $archive) {
-                    $output .= '
-            <tr>
-             <td>' . $dataDB->firstItem() . '</td>
-             <td>' . $archive->department->name . '</td>
-             <td>' . $archive->file_type . '</td>
-             <td>' . $archive->file_type . '</td>
-             <td>' . $archive->project_name . '</td>
-             <td>' . $archive->subject . '</td>
-             <td>' . $archive->ref_no . '</td>
-             <td><a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i>
-             <a  class="download" title="Download" data-toggle="tooltip"href=' . "{{route('archive.download',['file'=>$archive->id ])}}" . '><i class="material-icons">&#xe2c4;</i></a>  </td>
-            </tr>
-            ';
-                }
-            } else {
-                $output = '
-           <tr>
-             <td align="center" colspan="5">No Data Found</td>
-           </tr>
-           ';
-            }
-            $data = array(
-                'table_data'  => $output,
-                'total_data'  => $total_row
-            );
-            return \Response::json($data);
-        }
-    }
+    //         $total_row = $dataDB->count();
+    //         if ($total_row > 0) {
+    //             foreach ($dataDB as $loop => $archive) {
+    //                 $output .= '
+    //         <tr>
+    //          <td>' . $dataDB->firstItem() . '</td>
+    //          <td>' . $archive->department->name . '</td>
+    //          <td>' . $archive->file_type . '</td>
+    //          <td>' . $archive->project_name . '</td>
+    //          <td>' . $archive->project_name . '</td>
+    //          <td>' . $archive->subject . '</td>
+    //          <td>' . $archive->ref_no . '</td>
+    //          <td><a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i>
+    //          <a  class="download" title="Download" data-toggle="tooltip"href=' . route('archive.download',['file'=>$archive->id ]) . '><i class="material-icons">&#xe2c4;</i></a>  </td>
+    //         </tr>
+    //         ';
+    //             }
+    //         } else {
+    //             $output = '
+    //        <tr>
+    //          <td align="center" colspan="5">No Data Found</td>
+    //        </tr>
+    //        ';
+    //         }
+    //         $data = array(
+    //             'table_data'  => $output,
+    //             'total_data'  => $total_row
+    //         );
+    //         return \Response::json($data);
+    //     }
+    // }
     public function adminSearch(Request $request)
     {
 
@@ -141,12 +141,11 @@ class FileArchiveController extends Controller
                 foreach ($dataDB as $loop => $archive) {
                     $output .= '
             <tr>
-             <td>' .  $loop + $dataDB->firstItem() - 1 . '</td>
+             <td>' .  $loop->iteration + $dataDB->firstItem() - 1 . '</td>
              <td>' . $archive->department->name . '</td>
              <td>' . $archive->file_type . '</td>
-             <td>' . $archive->file_type . '</td>
              <td>' . $archive->project_name . '</td>
-             <td>' . $archive->subject . '</td>
+             <td>' . $archive->subject  . '</td>
              <td>' . $archive->ref_no . '</td>
              <td>
              <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>

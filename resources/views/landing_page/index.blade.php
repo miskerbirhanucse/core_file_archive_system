@@ -70,11 +70,11 @@
 
                     <li><a href="#services">Services</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li><a href="{{ route('register') }}">Sign Up</a></li>
 
                 </ul>
             </nav><!-- .nav-menu -->
-            <!-- 
+            <!--
             <div class="header-social-links">
                 <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
                 <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
@@ -261,7 +261,7 @@
                             <button class="btn btn-primary">See More</button>
                         </div>
                     </div>
-                    <!-- 
+                    <!--
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
                         <div class="icon-box iconbox-teal">
                             <div class="icon">
