@@ -51,7 +51,8 @@ class AttemptToAuthenticate
         }
 
         if ($this->guard->attempt(
-            $request->only(Fortify::username(), 'password'))
+            $request->only(Fortify::username(), 'password'),
+            $request->boolean('remember'))
         ) {
             return $next($request);
         }

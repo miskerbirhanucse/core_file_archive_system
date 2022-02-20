@@ -5,8 +5,9 @@ namespace App\Http\Controllers\purchase;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Purchase;
+use App\Notifications\PurchaseRequest;
 use Illuminate\Http\Request;
-
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -119,6 +120,9 @@ class PurchaseController extends Controller
                 $approvedOrRejected = $checked[0] == 1 ? 'approved' : 'rejected';
                 $purchase->approve_by_department_id = auth()->user()->id;
                 $purchase->save();
+                $requestedUser = $purchase->user;
+                $message = 'Your Purchase request is ' . $approvedOrRejected;
+                $requestedUser->notify(new PurchaseRequest($message));
                 return redirect()->route('approve.page.purchase')->with('success', 'Purchase request is ' . $approvedOrRejected . ' successfully');
             }
 
@@ -135,6 +139,9 @@ class PurchaseController extends Controller
             $approvedOrRejected = $checked[0] == 1 ? 'authorized' : 'rejected';
             $purchase->authorized_id = auth()->user()->id;
             $purchase->save();
+            $requestedUser = $purchase->user;
+            $message = 'Your Purchase request is ' . $approvedOrRejected;
+            $requestedUser->notify(new PurchaseRequest($message));
             return redirect()->route('authorize.page.purchase')->with('success', 'Purchase request is ' . $approvedOrRejected . ' successfully');
         }
 
@@ -174,6 +181,9 @@ class PurchaseController extends Controller
             $approvedOrRejected = $checked[0] == 1 ? 'approved' : 'rejected';
             $purchase->approve_by_store_id = auth()->user()->id;
             $purchase->save();
+            $requestedUser = $purchase->user;
+            $message = 'Your Purchase request is ' . $approvedOrRejected;
+            $requestedUser->notify(new PurchaseRequest($message));
             return redirect()->route('authorize.page.purchase')->with('success', 'Purchase request is ' . $approvedOrRejected . ' successfully');
         }
         return redirect()->back()->with('error', 'Select the check box');
@@ -193,5 +203,17 @@ class PurchaseController extends Controller
             // return view('pdf.purchase_invoice');
         }
         return redirect()->back()->with('error', 'Select the check box');
+    }
+    public function markNotification($id)
+    {
+       
+        auth()->user()
+            ->unreadNotifications
+            ->when($id, function ($query) use ($id) {
+                return $query->where('id', $id);
+            })
+            ->markAsRead();
+
+        return redirect()->back();
     }
 }

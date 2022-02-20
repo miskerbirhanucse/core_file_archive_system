@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\FileArchive;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PDF;
@@ -197,7 +198,11 @@ class FileArchiveController extends Controller
     }
     public function reportArchive(Request $request)
     {
-        $month = $request->month;
+        //$month = $request->month;
+        $reportMonth =Date::parse($request->start_date)->format('F Y');
+        //$reportMonth->format('Y-m');
+        //dd();
+
         $currentTime = Carbon::now()->isoFormat('DD/MMM/YYYY');
         if (request()->start_date || request()->end_date) {
             $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
@@ -206,7 +211,7 @@ class FileArchiveController extends Controller
             $archives = FileArchive::whereBetween('created_at', [$start_date, $end_date])->paginate(10);
         }
         if ($archives->total() != 0) {
-            $pdf = PDF::loadView('file_archive.archive_report', ['archives' => $archives, 'month' => $month, 'currentTime' => $currentTime])->setPaper('a4', 'landscape');
+            $pdf = PDF::loadView('file_archive.archive_report', ['archives' => $archives, 'month' => $reportMonth, 'currentTime' => $currentTime])->setPaper('a4', 'landscape');
             set_time_limit(300);
             // download PDF file with download method
             return $pdf->stream('pdf_file.pdf');

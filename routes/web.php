@@ -50,6 +50,7 @@ Route::prefix('purchase')->group(function () {
     Route::get('/store', [PurchaseController::class, 'storeList'])->name('store.list.purchase');
     Route::get('/storePage', [PurchaseController::class, 'storePage'])->name('store.page.purchase');
     Route::put('/store/{id}', [PurchaseController::class, 'storeApprove'])->name('store.approve.purchase');
+    Route::post('/mark-as-read/{id}', [PurchaseController::class, 'markNotification'])->name('mark.notification');
 });
 
 Route::post('/pdf', [PurchaseController::class, 'exportPDF'])->name('purchase.export');

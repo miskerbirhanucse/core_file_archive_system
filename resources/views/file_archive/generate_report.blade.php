@@ -17,10 +17,10 @@
                     <label for="starting" class="text-dark mr-3">To</label>
                     <input type="date" class="form-control bg-white text-dark" name="end_date" required>
                 </div>
-                <div class="input-group mb-3 col-4 ">
+                <!-- <div class="input-group mb-3 col-4 ">
                     <label for="starting" class="text-dark mr-3">Enter month and year</label>
                     <input type="text" class="form-control bg-white text-dark" name="month" required>
-                </div>
+                </div> -->
                 <button type="submit" class="btn btn-primary mr-2 mt-5">Generate</button>
             </form>
 

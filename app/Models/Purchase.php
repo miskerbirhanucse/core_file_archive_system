@@ -38,5 +38,4 @@ class Purchase extends Model
     {
         return $this->belongsTo(User::class, 'authorized_id');
     }
-    
 }

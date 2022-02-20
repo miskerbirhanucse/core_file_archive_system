@@ -23,11 +23,13 @@
         </div>
     </div>
 </div>
+@hasrole('Super-Admin')
 <div class="row">
     <div class="col-md-6">
         <h4 class="card-title text-dark">All Purchase Request</h4>
     </div>
 </div>
+
 <div class="row">
     <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
         <div class="card shadow p-5 mb-5 bg-white rounded">
@@ -51,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+    <!-- <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
         <div class="card shadow p-5 mb-5 bg-white rounded">
             <div class="card-body">
                 <div class="row">
@@ -109,7 +111,7 @@
                 <h6 class="text-muted font-weight-normal">Rejected Purchase Request</h6>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -140,6 +142,96 @@
         </div>
     </div>
 
+</div>
+@endhasrole
+<div class="row">
+    <div class="col-md-6">
+        <h4 class="card-title text-dark">All Purchase Request</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card shadow p-5 mb-5 bg-white rounded">
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0 text-dark">{{$userArchive}}</h3>
+                            <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-primary ">
+                            <span class="mdi mdi-account-multiple icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Total Purchase Request</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card shadow p-5 mb-5 bg-white rounded">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0 text-dark ">{{$userArchiveApproved}}</h3>
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-account-multiple icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Approved Purchased Request</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card shadow p-5 mb-5 bg-white rounded">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0 text-dark">{{$userArchive-$userArchiveApproved-$userArchiveRejected}}</h3>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-warning">
+                            <span class="mdi mdi-account-multiple icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Pending Purchase Request</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card shadow p-5 mb-5 bg-white rounded">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                            <h3 class="mb-0 text-dark">{{$userArchiveRejected}}</h3>
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="icon icon-box-danger ">
+                            <span class="mdi mdi-account-multiple icon-item"></span>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="text-muted font-weight-normal">Rejected Purchase Request</h6>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- <div class="row">
     <div class="col-md-4 grid-margin stretch-card">

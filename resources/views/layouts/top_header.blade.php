@@ -60,7 +60,7 @@
                                 <i class="mdi mdi-view-grid"></i>
                             </a>
                         </li> -->
-            <li class="nav-item dropdown border-left">
+            <!-- <li class="nav-item dropdown border-left">
                 <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                     <i class="mdi mdi-email"></i>
                     <span class="count bg-success"></span>
@@ -100,54 +100,54 @@
                     <div class="dropdown-divider"></div>
                     <p class="p-3 mb-0 text-center">4 new messages</p>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown border-left">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                     <i class="mdi mdi-bell"></i>
-                    <span class="count bg-danger"></span>
+                    <span class="count bg-transparent" style="position: absolute;top: -10px;
+                            right: -10px;
+                            font-weight:bold;
+                            padding: 5px 10px;
+                            border-radius: 50%;
+                            background:red;
+                            color: red;">
+                        {{ auth()->user()->unreadNotifications->count()==0?"":auth()->user()->unreadNotifications->count() }} </span>
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                     <h6 class="p-3 mb-0">Notifications</h6>
+                    @if(auth()->user())
+                    @forelse(auth()->user()->unreadNotifications as $notification)
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-calendar text-success"></i>
+                    <form action="{{ route('mark.notification',['id'=>$notification->id])}}" method="POST">
+                        @csrf
+                        <button class="dropdown-item preview-item" type="submit" data-id="{{ $notification->id }}">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-calendar text-success"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <p class="preview-subject mb-1">Event today</p>
-                            <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-settings text-danger"></i>
+                            <div class="preview-item-content">
+                                <p class="preview-subject mb-1">{{ $notification->data['message'] }}</p>
+
+                                <!-- <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p> -->
                             </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <p class="preview-subject mb-1">Settings</p>
-                            <p class="text-muted ellipsis mb-0"> Update dashboard </p>
-                        </div>
+                        </button>
+                    </form>
+
+                    @if($loop->last)
+                    <a href="#" class="bg-white" id="mark-all">
+                        <p class="p-3 mb-0 text-center text-white">Mark all notifications as read</p>
                     </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-dark rounded-circle">
-                                <i class="mdi mdi-link-variant text-warning"></i>
-                            </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <p class="preview-subject mb-1">Launch Admin</p>
-                            <p class="text-muted ellipsis mb-0"> New admin wow! </p>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <p class="p-3 mb-0 text-center">See all notifications</p>
+                    @endif
+                    @empty
+                    <p class="p-3 mb-0 text-center">There are no new notifications</p>
+                    @endforelse
+                    @endif
+                    <!-- <p class="p-3 mb-0 text-center">See all notifications</p> -->
                 </div>
             </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                     <div class="navbar-profile">
@@ -185,7 +185,7 @@
                         </a>
                     </form>
                     <div class="dropdown-divider"></div>
-                   
+
                 </div>
             </li>
         </ul>

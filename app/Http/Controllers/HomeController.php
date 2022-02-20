@@ -15,7 +15,10 @@ class HomeController extends Controller
         $pending = $purchases->where('authorized', Purchase::PENDING)->count();
         $approved = $purchases->where('authorized', Purchase::APPROVED)->count();
         $rejected = $purchases->where('approved_by_department', Purchase::REJECTED)->count();
+        $userArchive = auth()->user()->purchase->count();
+        $userArchiveApproved = auth()->user()->purchase->where('authorized', '=', Purchase::APPROVED)->where('approved_by_department', '=', Purchase::APPROVED)->count();
+        $userArchiveRejected = auth()->user()->purchase->where('approved_by_department', '=', Purchase::REJECTED)->count();
 
-        return view('admin.index', compact('purchases', 'pending', 'approved', 'rejected', 'archives'));
+        return view('admin.index', compact('purchases','userArchive', 'userArchiveApproved', 'userArchiveRejected', 'pending', 'approved', 'rejected', 'archives'));
     }
 }
