@@ -5,10 +5,11 @@ namespace App\Http\Controllers\purchase;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Purchase;
+use App\Models\User;
 use App\Notifications\PurchaseRequest;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Validator;
+use \Illuminate\Support\Collection;
 use PDF;
 
 class PurchaseController extends Controller
@@ -35,21 +36,23 @@ class PurchaseController extends Controller
             'user_id' => auth()->user()->id,
             'department_id' => $request['department_id'],
         ]);
+        $users = User::where('department_id', '=', $request['department_id'])->get();
+        $message = "New Purchase Request is added by " . auth()->user()->name;
+        foreach ($users as $notifiedUser) {
+            if ($notifiedUser->hasRole('Head')) {
+                $notifiedUser->notify(new PurchaseRequest($message));
+            }
+        }
+
         return redirect()->route('purchase.list')->with('success', 'Purchase request is created successfully');
     }
     public function allPurchaseRequest()
     {
         $purchases = Purchase::where('user_id', auth()->user()->id)->paginate(10);
-        $totalPurchases = $purchases->count();
-        $pending = $purchases->where('approved_by_department', Purchase::PENDING)->count();
-        $approved = $purchases->where(
-            ['approved_by_department', '=', Purchase::APPROVED],
-            ['approved_by_store', '=', 1],
-            ['authorized', '=', 1],
-        )->count();
-        $rejected = $purchases->where('approved_by_department', Purchase::REJECTED)->count();
-
-        return view('purchase.all_purchase', compact('purchases', 'totalPurchases', 'pending', 'approved', 'rejected'));
+        $userArchive = auth()->user()->purchase->count();
+        $userArchiveApproved = auth()->user()->purchase->where('authorized', '=', Purchase::APPROVED)->where('approved_by_department', '=', Purchase::APPROVED)->count();
+        $userArchiveRejected = auth()->user()->purchase->where('approved_by_department', '=', Purchase::REJECTED)->count();
+        return view('purchase.all_purchase', compact('purchases', 'userArchive', 'userArchiveApproved', 'userArchiveRejected'));
     }
     public function allPurchaseAdmin()
     {
@@ -95,11 +98,13 @@ class PurchaseController extends Controller
     public function approvePage()
     {
         $department_id = auth()->user()->department_id;
+        $allPurchase = Purchase::where('department_id', '=', $department_id)->get();
+        $userArchive = $allPurchase->count();
+        $userArchiveApproved = $allPurchase->where('approved_by_department', Purchase::APPROVED)->count();
+        $userArchiveRejected = $allPurchase->where('approved_by_department', Purchase::REJECTED)->count();
         $purchases = Purchase::where('department_id', '=', $department_id)->paginate(10);
-        $pending = $purchases->where('approved_by_department', Purchase::PENDING)->count();
-        $approved = $purchases->where('approved_by_department', Purchase::APPROVED)->count();
-        $rejected = $purchases->where('approved_by_department', Purchase::REJECTED)->count();
-        return view('purchase.all_purchase', compact('purchases', 'pending', 'approved', 'rejected'));
+
+        return view('purchase.all_purchase', compact('purchases', 'userArchive', 'userArchiveApproved', 'userArchiveRejected'));
     }
     public function authorizePage()
     {
@@ -206,7 +211,7 @@ class PurchaseController extends Controller
     }
     public function markNotification($id)
     {
-       
+
         auth()->user()
             ->unreadNotifications
             ->when($id, function ($query) use ($id) {

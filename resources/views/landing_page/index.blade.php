@@ -92,36 +92,36 @@
             <div class="carousel-inner" role="listbox">
 
                 <!-- Slide 1 -->
-                <div class="carousel-item active" style="background-image: url(landing/asset/img/slide/slide-1.jpg);">
-                    <div class="carousel-container">
+                <div class="carousel-item active" style="background-image: url(landing/asset/img/slide/slide_1.jpg);">
+                    <!-- <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
                             <h2>Welcome to <span>Company</span></h2>
                             <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
                             <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Slide 2 -->
-                <div class="carousel-item" style="background-image: url(landing/asset/img/slide/slide-2.jpg);">
-                    <div class="carousel-container">
+                <div class="carousel-item" style="background-image: url(landing/asset/img/slide/slide_2.jpg);">
+                    <!-- <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
                             <h2>Lorem Ipsum Dolor</h2>
                             <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
                             <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Slide 3 -->
-                <div class="carousel-item" style="background-image: url(landing/asset/img/slide/slide-3.jpg);">
-                    <div class="carousel-container">
+                <div class="carousel-item" style="background-image: url(landing/asset/img/slide/slide_3.jpg);">
+                    <!-- <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
                             <h2>Sequi ea ut et est quaerat</h2>
                             <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
                             <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -281,7 +281,7 @@
         </section><!-- End Services Section -->
 
         <!-- ======= Portfolio Section ======= -->
-        <section id="portfolio" class="portfolio">
+        <!-- <section id="portfolio" class="portfolio">
             <div class="container">
 
                 <div class="section-title" data-aos="fade-up">
@@ -394,8 +394,21 @@
                 </div>
 
             </div>
-        </section><!-- End Portfolio Section -->
+        </section> -->
+        <!-- End Portfolio Section -->
 
+        <!-- Testimony -->
+        <!-- <section class="testimonials" id="testimonials">
+            <div class="container" data-aos="fade-up">
+                <div class="section_title">
+                    <h2>TESTIMONIALS</h2>
+                    <p>What people says</p>
+                </div>
+                <div class="row no-gutters clearfix" data-aos="fade-up">
+                </div>
+            </div>
+        </section> -->
+        <!-- end testimony -->
         <!-- ======= Our Clients Section ======= -->
         <section id="clients" class="clients">
             <div class="container" data-aos="fade-up">
@@ -407,7 +420,7 @@
                 <div class="row no-gutters clearfix" data-aos="fade-up">
 
                     <div class="col-lg-3 col-md-4 col-6">
-                        <img src="{{asset('images/era.png')}}" style="height: 190px; width:200; padding-bottom:20px" alt="">
+                        <img src="{{asset('images/era.png')}}" style="height: 180px; width:200; padding-bottom:20px" alt="">
                         <p class="text-dark">Ethiopian Road Authority(ERA)</p>
                     </div>
 
