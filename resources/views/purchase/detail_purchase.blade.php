@@ -24,6 +24,9 @@
             <div class="form-group">
                 <p for="exampleInputEmail3" class="text-dark display-5">Quantity: <b>{{$purchase->quantity}}</b></p>
             </div>
+            <div class="form-group">
+                <p for="exampleInputEmail3" class="text-dark display-5">Estimated Cost: <b>{{number_format($purchase->estimated_cost)}}</b></p>
+            </div>
 
             <div class="form-group">
                 <p for="exampleInputEmail3" class="text-dark display-5">Project Name: <b>{{$purchase->project_name}}</b></p>

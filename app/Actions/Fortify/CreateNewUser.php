@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -34,7 +35,7 @@ class CreateNewUser implements CreatesNewUsers
             return tap(User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
-                'password' => Hash::make($input['password']),
+                'password' => Crypt::encryptString($input['password']),
                 'department_id' => $input['department_id'],
             ]), function (User $user) {
                 // $this->createTeam($user);

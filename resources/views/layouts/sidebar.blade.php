@@ -124,9 +124,9 @@
             <div class="collapse" id="file">
                 <ul class="nav flex-column sub-menu">
                     @hasrole('Secretary')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('archive.list')}}">File Archive List</a></li>
+                    <li class="nav-item" key="1"> <a class="nav-link" href="{{route('archive.list')}}">File Archive List</a></li>
                     @endhasrole
-                    <li class="nav-item"> <a class="nav-link" href="{{route('archive.create')}}">Create File Archive</a></li>
+                    <li class="nav-item" key="2"> <a class="nav-link" href="{{route('archive.create')}}">Create File Archive</a></li>
                     @hasrole('Super-Admin')
                     <li class="nav-item"> <a class="nav-link" href="{{route('archive.admin_all')}}">All File Archive List</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('show.archive.report')}}">Generate Report</a></li>

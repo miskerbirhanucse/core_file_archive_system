@@ -16,6 +16,10 @@
                     <input type="number" class="form-control bg-white text-dark" name="quantity" id="exampleInputName1" placeholder="" required>
                 </div>
                 <div class="form-group">
+                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Estimated Cost</label>
+                    <input type="number" class="form-control bg-white text-dark" name="estimated_cost" id="exampleInputName1" placeholder="" required>
+                </div>
+                <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Specification</label>
                     <textarea class="form-control bg-white text-dark" name="specification" id="exampleTextarea1" rows="4" required></textarea>
                 </div>

@@ -15,6 +15,10 @@
 
                 </div>
                 <div class="form-group">
+                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Password: {{Crypt::decryptString($user->password)}}</label>
+
+                </div>
+                <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Department: {{$user->department()->first()->name}}</label>
                 </div>
                 <div class="row">

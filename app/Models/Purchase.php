@@ -12,7 +12,7 @@ class Purchase extends Model
     protected $fillable = [
         'description', 'specification', 'project_name',
         'approved_by_department', 'approved_by_store', 'authorized', 'quantity',
-        'user_id', 'department_id', 'is_purchased', 'approve_id',
+        'user_id', 'department_id', 'is_purchased', 'approve_id', 'estimated_cost'
     ];
     public const APPROVED = 1;
     public const PENDING = 0;

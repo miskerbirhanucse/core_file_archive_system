@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Crypt;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
@@ -41,7 +42,7 @@ class PermissionSeeder extends Seeder
         $user = \App\Models\User::factory()->create([
             'name' => 'super admin',
             'email' => 'superadmin@example.com',
-            'password' => Hash::make('123456789'),
+            'password' => Crypt::encryptString('123456789'),
             'is_admin' => 1,
             'approved' => 1,
         ]);
