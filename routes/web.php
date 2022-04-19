@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\file_archive\FileArchiveController;
+use App\Http\Controllers\LetterController;
 use App\Http\Controllers\purchase\PurchaseController;
 
 /*
@@ -55,6 +56,7 @@ Route::prefix('purchase')->group(function () {
 
 Route::post('/pdf', [PurchaseController::class, 'exportPDF'])->name('purchase.export');
 
+//archive
 Route::prefix('archive')->group(function () {
     Route::get('/create', [FileArchiveController::class, 'create'])->name('archive.create');
     Route::get('/allArchive', [FileArchiveController::class, 'allArchive'])->name('archive.list');
@@ -67,4 +69,25 @@ Route::prefix('archive')->group(function () {
     Route::put('/update/{id}', [FileArchiveController::class, 'updateArchive'])->name('archive.update');
     Route::get('/show/report', [FileArchiveController::class, 'showReportPage'])->name('show.archive.report');
     Route::get('/report', [FileArchiveController::class, 'reportArchive'])->name('archive.report');
+});
+
+//letter
+Route::prefix('letter')->group(function () {
+    Route::get('/create',[LetterController::class,'showCreatePage'])->name('letter.create');
+    Route::get('/list',[LetterController::class,'showListPage'])->name('letter.list');
+    Route::post('/store',[LetterController::class,'storeLetter'])->name('letter.store');
+    Route::get('/download/{id}', [LetterController::class, 'download'])->name('letter.download');
+    Route::get('/edit/{id}', [LetterController::class, 'editLetter'])->name('letter.edit');
+    Route::put('/secretary/{id}',[LetterController::class,'updateSecretary'])->name('letter.update.secretary');
+    Route::put('/update/{id}', [LetterController::class, 'updateLetter'])->name('letter.update');
+    Route::get('/search', [LetterController::class, 'search'])->name('letter.search');
+    Route::get('/admin/search', [LetterController::class, 'adminSearch'])->name('letter.admin.search');
+    Route::get('/gm/list',[LetterController::class,'showGMList'])->name('letter.gm.cc');
+    Route::put('/gm/send/{id}',[LetterController::class,'sendLetter'])->name('letter.gm.send');
+    Route::get('/delete/{id}', [LetterController::class, 'deleteArchive'])->name('letter.delete');
+    Route::get('/detail/{id}', [LetterController::class, 'showDetail'])->name('letter.detail');
+
+    Route::get('/manage',[LetterController::class,'showManage'])->name('letter.manage');
+    Route::put('/dp/{id}',[LetterController::class,'depSendLetter'])->name('dp.letter');
+    Route::get('/team/letters',[LetterController::class,'teamLetters'])->name('letter.letters');
 });

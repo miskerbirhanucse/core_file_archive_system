@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>CORE_DAMS</title>
+    <title>CORE_DRAMS</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('landing/asset/img/favicon.png')}}" rel="icon">
+    <link href="{{ asset('landing/asset/img/favicon3.png')}}" rel="icon">
     <link href="{{ asset('landing/asset/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -89,10 +89,11 @@
     <section id="hero">
         <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
 
-            <div class="carousel-inner" role="listbox">
+            <div class="carousel-inner" role="listbox" >
 
                 <!-- Slide 1 -->
-                <div class="carousel-item active" style="background-image: url(landing/asset/img/slide/slide_1.jpg);">
+                <div class="carousel-item active" >
+                <img src="landing/asset/img/slide/slide.jpg"  alt="image1" height="800px" width="1500px" style="margin-left: 100px;">
                     <!-- <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
                             <h2>Welcome to <span>Company</span></h2>
@@ -103,7 +104,9 @@
                 </div>
 
                 <!-- Slide 2 -->
-                <div class="carousel-item" style="background-image: url(landing/asset/img/slide/slide_2.jpg);">
+                <div class="carousel-item" >
+                <!-- style="background-image: url(landing/asset/img/slide/Pic_1.jpg);" -->
+                <img src="landing/asset/img/slide/Pic_1.jpg"  alt="image1" height="900px" width="1500px" style="margin-left: 100px; ">
                     <!-- <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
                             <h2>Lorem Ipsum Dolor</h2>
@@ -114,7 +117,18 @@
                 </div>
 
                 <!-- Slide 3 -->
-                <div class="carousel-item" style="background-image: url(landing/asset/img/slide/slide_3.jpg);">
+                <div class="carousel-item" >
+                <img src="landing/asset/img/slide/building.jpg"  alt="image1" height="900px" width="1200px" style="margin-left: 100px; ">
+                    <!-- <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2>Sequi ea ut et est quaerat</h2>
+                            <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                            <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="carousel-item" >
+                <img src="landing/asset/img/slide/lab.jpg"  alt="image1" height="800px" width="1200px" style="margin-left: 100px; ">
                     <!-- <div class="carousel-container">
                         <div class="carousel-content animate__animated animate__fadeInUp">
                             <h2>Sequi ea ut et est quaerat</h2>
@@ -133,7 +147,7 @@
 
             <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon icofont-simple-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
+             <span class="sr-only">Next</span>
             </a>
 
             <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
@@ -425,7 +439,7 @@
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-6">
-                        <img src="{{asset('images/ora_logo.jpg')}}" style="height: 180px; width:200;padding-left:30px; padding-bottom:55px" alt="">
+                        <img src="{{asset('images/ora_logo.jpg')}}" style="height: 180px; width:200;padding-left:30px; padding-bottom:5px" alt="">
                         <p class="text-dark">Oromia Road Authority(ORA)</p>
                     </div>
 
@@ -439,7 +453,7 @@
                         <p class="text-dark">Addis Ababa City Road Authority(AACRA)</p>
                     </div>
                     <div class="col-lg-3 col-md-4 col-6">
-                        <img src="{{asset('images/eae.jpg')}}" style="height: 180px; width:150" alt="">
+                        <img src="{{asset('images/eae.jpg')}}" style="height: 180px; " alt="">
                         <p class="text-dark">Ethiopia Airports Enterprise(EAE) </p>
                     </div>
 
@@ -528,7 +542,7 @@
 
             <div class="mr-md-auto text-center text-md-left">
                 <div class="copyright">
-                    &copy; Copyright <strong><span>core consulting engineers</span></strong>. All Rights Reserved
+                    &copy; 2022 <strong><span>core consulting engineers</span></strong>. All Rights Reserved
                 </div>
                 <div class="credits">
                     <!-- All the links in the footer should remain intact. -->

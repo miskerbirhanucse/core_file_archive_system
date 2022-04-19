@@ -35,10 +35,7 @@
                                 <label class="form-check-label">
                                     <input type="checkbox" name="permissions[]" class="form-check-input" value="approve request">approve request</label>
                             </div>
-                            <div class="form-check form-check-info">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="permissions[]" class="form-check-input" value="access request"> access request </label>
-                            </div>
+
                             <div class="form-check form-check-danger">
                                 <label class="form-check-label">
                                     <input type="checkbox" name="permissions[]" class="form-check-input" value="delete request"> delete request </label>
@@ -71,6 +68,10 @@
                             <h6 class="text-dark">Role</h6>
                         </div>
                         <div class="form-group">
+                            <div class="form-check form-check-primary">
+                                <label class="form-check-label">
+                                    <input type="checkbox" name="roles[]" value="GM" class="form-check-input">General Manager</label>
+                            </div>
                             <div class="form-check form-check-primary">
                                 <label class="form-check-label">
                                     <input type="checkbox" name="roles[]" value="Head" class="form-check-input">Head </label>

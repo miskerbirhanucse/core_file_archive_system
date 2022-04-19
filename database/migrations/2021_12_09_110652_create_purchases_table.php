@@ -20,8 +20,8 @@ class CreatePurchasesTable extends Migration
             $table->integer('approved_by_department')->default(0);
             $table->integer('approved_by_store')->default(0);
             $table->integer('authorized')->default(0);
-            $table->integer('quantity');
-            $table->integer('estimated_cost');
+            $table->integer('quantity')->nullable();
+            $table->integer('estimated_cost')->nullable();
             $table->string('project_name')->nullable();
             $table->unsignedBigInteger('department_id');
             $table->boolean('is_purchased')->default(0);

@@ -46,7 +46,7 @@
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer bg-secondary">
                     <div class="d-sm-flex justify-content-center  justify-content-sm-between">
-                        <span class="text-dark text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021 Core Consulting Engineers. All rights reserved.</span>
+                        <span class="text-dark text-center text-sm-left d-block d-sm-inline-block"> © 2022 Core Consulting Engineers. All rights reserved.</span>
 
                     </div>
                 </footer>

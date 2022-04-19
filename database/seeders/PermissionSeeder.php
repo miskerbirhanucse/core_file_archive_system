@@ -33,6 +33,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'store approve request']);
 
         //create role
+        Role::create(['name' => 'GM']);
         Role::create(['name' => 'Head']);
         Role::create(['name' => 'Team Leader']);
         Role::create(['name' => 'Team']);

@@ -36,7 +36,7 @@
                     <input type="text" class="" name="project name" id="exampleInputName1" placeholder=""> -->
                 </div>
 
-                <button type="Update" class="btn btn-primary mr-2">Create</button>
+                <button type="Update" class="btn btn-primary mr-2">Update</button>
 
             </form>
         </div>

@@ -112,7 +112,37 @@
                 </ul>
             </div>
         </li>
-        @hasanyrole('Secretary|Super-Admin')
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#letter" aria-expanded="false" aria-controls="purchase-basic">
+                <span class="menu-icon bg-secondary">
+                    <i class="mdi mdi-laptop"></i>
+                </span>
+                <span class="menu-title">Letter</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="letter">
+                <ul class="nav flex-column sub-menu">
+                    @hasrole('Secretary')
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.create')}}">Create Letter</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.list')}}">Letter List</a></li>
+                    @endhasrole
+                    @hasanyrole('Head|Team Leader')
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.manage')}}">Manage Letter</a></li>
+                    @endhasanyrole
+                    @hasrole('Team')
+                    <li class="nav-item"><a class="nav-link" href="{{route('letter.letters')}}">Letters</a></li>
+                    @endhasrole
+                    @hasanyrole('GM')
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.gm.cc')}}">CC Letters</a></li>
+                    @endhasanyrole
+                    @hasrole('Super-Admin')
+                    <!-- <li class="nav-item"> <a class="nav-link" href="{{route('purchase.admin_all')}}">All Letters</a></li> -->
+                    @endhasrole
+
+                </ul>
+            </div>
+        </li>
+        @hasanyrole('Secretary|Super-Admin|Head')
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#file" aria-expanded="false" aria-controls="file">
                 <span class="menu-icon">
@@ -123,15 +153,21 @@
             </a>
             <div class="collapse" id="file">
                 <ul class="nav flex-column sub-menu">
+
                     @hasrole('Secretary')
-                    <li class="nav-item" key="1"> <a class="nav-link" href="{{route('archive.list')}}">File Archive List</a></li>
-                    @endhasrole
-                    <li class="nav-item" key="2"> <a class="nav-link" href="{{route('archive.create')}}">Create File Archive</a></li>
-                    @hasrole('Super-Admin')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('archive.admin_all')}}">All File Archive List</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('show.archive.report')}}">Generate Report</a></li>
+                    <li class="nav-item" key="1"> <a class="nav-link" href="{{route('archive.list')}}"> Archive List</a></li>
+                    <li class="nav-item" key="2"> <a class="nav-link" href="{{route('archive.create')}}">Create Archive</a></li>
                     @endhasrole
 
+                    @hasrole('Head')
+                    <li class="nav-item" key="1"> <a class="nav-link" href="{{route('archive.list')}}">Archive List</a></li>
+                    @endhasrole
+                    @hasrole('Super-Admin')
+                    <li class="nav-item"> <a class="nav-link" href="{{route('show.archive.report')}}">Generate Report</a></li>
+                    @endhasrole
+                    @can('access request')
+                    <li class="nav-item"> <a class="nav-link" href="{{route('archive.admin_all')}}">All Archive List</a></li>
+                    @endcan
                 </ul>
             </div>
         </li>

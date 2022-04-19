@@ -174,7 +174,7 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-8">
-                            <h2>File Archive <b>Lists</b></h2>
+                            <h2>Department Archive <b>Lists</b></h2>
 
 
                         </div>
