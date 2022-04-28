@@ -30,13 +30,13 @@ Route::prefix('admin')->group(function () {
     Route::post('/update/user/{id}', [AdminController::class, 'updateUser'])->name('admin.update_user');
     Route::get('/edit/{id}', [AdminController::class, 'editUser'])->name('admin.edit_user');
     Route::get('/delete/user/{id}', [AdminController::class, 'deleteUser'])->name('admin.delete_user');
-    Route::get('/all/purchase', [PurchaseController::class, 'allPurchaseAdmin'])->name('purchase.admin_all');
-    Route::get('/all/archive', [FileArchiveController::class, 'allArchiveAdmin'])->name('archive.admin_all');
+    Route::get('/purchases', [PurchaseController::class, 'allPurchaseAdmin'])->name('purchase.admin');
+    Route::get('/archive', [FileArchiveController::class, 'allArchiveAdmin'])->name('archive.admin');
 });
 
 //purchase
 Route::prefix('purchase')->group(function () {
-    Route::get('/create/purchase', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::get('/create', [PurchaseController::class, 'create'])->name('purchase');
     Route::get('/allRequest', [PurchaseController::class, 'allPurchaseRequest'])->name('purchase.list');
     Route::get('/edit/{id}', [PurchaseController::class, 'editPurchase'])->name('edit.purchase');
     Route::get('/delete/{id}', [PurchaseController::class, 'deletePurchase'])->name('delete.purchase');
@@ -49,7 +49,7 @@ Route::prefix('purchase')->group(function () {
     Route::put('/updated/{id}', [PurchaseController::class, 'updatePurchase'])->name('purchase.update');
 
     Route::get('/store', [PurchaseController::class, 'storeList'])->name('store.list.purchase');
-    Route::get('/storePage', [PurchaseController::class, 'storePage'])->name('store.page.purchase');
+    Route::get('/page', [PurchaseController::class, 'storePage'])->name('store.page.purchase');
     Route::put('/store/{id}', [PurchaseController::class, 'storeApprove'])->name('store.approve.purchase');
     Route::post('/mark-as-read/{id}', [PurchaseController::class, 'markNotification'])->name('mark.notification');
 });
@@ -73,7 +73,7 @@ Route::prefix('archive')->group(function () {
 
 //letter
 Route::prefix('letter')->group(function () {
-    Route::get('/create',[LetterController::class,'showCreatePage'])->name('letter.create');
+    Route::get('/newLetter',[LetterController::class,'showCreatePage'])->name('letter');
     Route::get('/list',[LetterController::class,'showListPage'])->name('letter.list');
     Route::post('/store',[LetterController::class,'storeLetter'])->name('letter.store');
     Route::get('/download/{id}', [LetterController::class, 'download'])->name('letter.download');

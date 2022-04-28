@@ -91,29 +91,29 @@
             <div class="collapse" id="purchase-basic">
                 <ul class="nav flex-column sub-menu">
                     @can('create request')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.create')}}">Create Purchase</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.list')}}">Purchase List</a></li>
+                    <li class="nav-item" > <a class="nav-link" href="{{ route('purchase') }}">New Purchase</a></li>
+                    <li class="nav-item" > <a class="nav-link" href="{{ route('purchase.list')}}">Purchase List</a></li>
                     @endcan
                     @can('approve request')
                     <li class="nav-item"> <a class="nav-link" href="{{route('approve.page.purchase')}}">Approve Purchase</a></li>
                     @endcan
                     @can('authorize request')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('authorize.page.purchase')}}">Authorize Purchase</a></li>
+                    <li class="nav-item" > <a class="nav-link" href="{{route('authorize.page.purchase')}}">Authorize Purchase</a></li>
                     @endcan
                     @can('export request')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('store.page.purchase')}}">Store Approve Purchase</a></li>
+                    <li class="nav-item" > <a class="nav-link" href="{{route('store.page.purchase')}}">Store Approve Purchase</a></li>
 
                     <li class="nav-item"> <a class="nav-link" href="{{route('store.list.purchase')}}">Store Purchase Export list</a></li>
                     @endcan
                     @hasrole('Super-Admin')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.admin_all')}}">All Purchase</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.admin')}}"> Purchases</a></li>
                     @endhasrole
 
                 </ul>
             </div>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#letter" aria-expanded="false" aria-controls="purchase-basic">
+            <a class="nav-link" data-toggle="collapse" href="#letter" aria-expanded="false" aria-controls="letter">
                 <span class="menu-icon bg-secondary">
                     <i class="mdi mdi-laptop"></i>
                 </span>
@@ -122,10 +122,10 @@
             </a>
             <div class="collapse" id="letter">
                 <ul class="nav flex-column sub-menu">
-                    @hasrole('Secretary')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.create')}}">Create Letter</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.list')}}">Letter List</a></li>
-                    @endhasrole
+                    @hasanyrole('Super-Admin|Secretary')
+                    <li class="nav-item"><a class="nav-link" href="{{route('letter')}}">New Letter</a></li>
+                    <li  class="nav-item"> <a class="nav-link" href="{{route('letter.list')}}">Letter List</a></li>
+                    @endhasanyrole
                     @hasanyrole('Head|Team Leader')
                     <li class="nav-item"> <a class="nav-link" href="{{route('letter.manage')}}">Manage Letter</a></li>
                     @endhasanyrole
@@ -133,10 +133,10 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('letter.letters')}}">Letters</a></li>
                     @endhasrole
                     @hasanyrole('GM')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.gm.cc')}}">CC Letters</a></li>
+                    <li  class="nav-item"> <a class="nav-link" href="{{route('letter.gm.cc')}}">CC Letters</a></li>
                     @endhasanyrole
                     @hasrole('Super-Admin')
-                    <!-- <li class="nav-item"> <a class="nav-link" href="{{route('purchase.admin_all')}}">All Letters</a></li> -->
+
                     @endhasrole
 
                 </ul>
@@ -155,65 +155,22 @@
                 <ul class="nav flex-column sub-menu">
 
                     @hasrole('Secretary')
-                    <li class="nav-item" key="1"> <a class="nav-link" href="{{route('archive.list')}}"> Archive List</a></li>
-                    <li class="nav-item" key="2"> <a class="nav-link" href="{{route('archive.create')}}">Create Archive</a></li>
+                    <li class="nav-item" > <a class="nav-link" href="{{route('archive.list')}}"> Archive List</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('archive.create')}}">Create Archive</a></li>
                     @endhasrole
 
                     @hasrole('Head')
-                    <li class="nav-item" key="1"> <a class="nav-link" href="{{route('archive.list')}}">Archive List</a></li>
+                    <li class="nav-item" key="3"> <a class="nav-link" href="{{route('archive.list')}}">Archive List</a></li>
                     @endhasrole
                     @hasrole('Super-Admin')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('show.archive.report')}}">Generate Report</a></li>
+                    <li class="nav-item" key="4"> <a class="nav-link" href="{{route('show.archive.report')}}">Generate Report</a></li>
                     @endhasrole
                     @can('access request')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('archive.admin_all')}}">All Archive List</a></li>
+                    <li class="nav-item" key="5"> <a class="nav-link" href="{{route('archive.admin')}}">Archives List</a></li>
                     @endcan
                 </ul>
             </div>
         </li>
         @endhasanyrole
-        <!--
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-                <span class="menu-icon">
-                    <i class="mdi mdi-chart-bar"></i>
-                </span>
-                <span class="menu-title">Charts</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
-                <span class="menu-icon">
-                    <i class="mdi mdi-contacts"></i>
-                </span>
-                <span class="menu-title">Icons</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <span class="menu-icon">
-                    <i class="mdi mdi-security"></i>
-                </span>
-                <span class="menu-title">User Pages</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-                <span class="menu-icon">
-                    <i class="mdi mdi-file-document-box"></i>
-                </span>
-                <span class="menu-title">Documentation</span>
-            </a>
-        </li> -->
     </ul>
 </nav>

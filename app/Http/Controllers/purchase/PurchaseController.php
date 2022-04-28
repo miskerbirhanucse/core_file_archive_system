@@ -167,11 +167,11 @@ class PurchaseController extends Controller
     {
         $purchases = Purchase::paginate(10);
 
-        $approved = Purchase::where('approved_by_store', 1)->count();
-        $pending = Purchase::where('approved_by_store', Purchase::PENDING)->count();
-        $rejected = Purchase::where('approved_by_store', Purchase::REJECTED)->count();
+        $userPurchases = auth()->user()->purchase->count();
+        $userPurchaseApproved = auth()->user()->purchase->where('authorized', '=', Purchase::APPROVED)->where('approved_by_department', '=', Purchase::APPROVED)->count();
+        $userPurchaseRejected = auth()->user()->purchase->where('approved_by_department', '=', Purchase::REJECTED)->count();
 
-        return view('purchase.all_purchase', compact('purchases', 'pending', 'approved', 'rejected'));
+        return view('purchase.all_purchase', compact('purchases', 'userPurchases', 'userPurchaseApproved', 'userPurchaseRejected'));
     }
     public function storeList()
     {
