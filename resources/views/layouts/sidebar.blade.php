@@ -66,6 +66,21 @@
         </li>
         @hasrole('Super-Admin')
         <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#project">
+                <span class="menu-icon bg-secondary">
+                    <i class="mdi mdi-speedometer"></i>
+                </span>
+                <span class="menu-title">Manage Project</span>
+            </a>
+            <div class="collapse" id="project">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="/project/newProject">New Project</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/project/projectList">Project List</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-icon bg-secondary">
                     <i class="mdi mdi-laptop"></i>
@@ -123,29 +138,26 @@
             <div class="collapse" id="letter">
                 <ul class="nav flex-column sub-menu">
                     @hasanyrole('Super-Admin|Secretary')
-                    <li class="nav-item"><a class="nav-link" href="{{route('letter')}}">New Letter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('letter')}}">New Incoming Letter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('letter.outgoing')}}">New Outgoing Letter</a></li>
                     <li  class="nav-item"> <a class="nav-link" href="{{route('letter.list')}}">Letter List</a></li>
                     @endhasanyrole
                     @hasanyrole('Head|Team Leader')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.manage')}}">Manage Letter</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.manage')}}">Manage Incoming Letter</a></li>
                     @endhasanyrole
                     @hasrole('Team')
                     <li class="nav-item"><a class="nav-link" href="{{route('letter.letters')}}">Letters</a></li>
                     @endhasrole
                     @hasanyrole('GM')
-                    <li  class="nav-item"> <a class="nav-link" href="{{route('letter.gm.cc')}}">CC Letters</a></li>
+                    <li  class="nav-item"> <a class="nav-link" href="{{route('letter.gm.cc')}}">Manage Letters</a></li>
                     @endhasanyrole
-                    @hasrole('Super-Admin')
-
-                    @endhasrole
-
                 </ul>
             </div>
         </li>
-        @hasanyrole('Secretary|Super-Admin|Head')
+        @hasanyrole('Secretary|Super-Admin|Head|GM')
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#file" aria-expanded="false" aria-controls="file">
-                <span class="menu-icon">
+                <span class="menu-icon bg-secondary">
                     <i class="mdi mdi-table-large"></i>
                 </span>
                 <span class="menu-title">File Archive</span>
@@ -155,11 +167,10 @@
                 <ul class="nav flex-column sub-menu">
 
                     @hasrole('Secretary')
-                    <li class="nav-item" > <a class="nav-link" href="{{route('archive.list')}}"> Archive List</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('archive.create')}}">Create Archive</a></li>
                     @endhasrole
 
-                    @hasrole('Head')
+                    @hasrole('Head|GM|Secretary')
                     <li class="nav-item" key="3"> <a class="nav-link" href="{{route('archive.list')}}">Archive List</a></li>
                     @endhasrole
                     @hasrole('Super-Admin')

@@ -109,7 +109,13 @@
                             </td>
                             <td class="text-muted">{{$user->name}} </td>
                             <td>
-                                {{$user->department()->first()->name}}
+                                @if($user->department)
+                                {{$user->department->name}}
+                                @else
+                                    No department
+                                @endif
+
+
                             </td>
                             <td class="text-muted">{{$user->getRoleNames()}}</td>
                             <td class="text-muted">

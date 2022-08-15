@@ -21,9 +21,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Project Name</label>
-                    <input type="text" value="{{$archive->project_name}}" class="form-control bg-white text-dark" name="project_name" id="exampleInputName1" placeholder="" required>
+                    <label for="exampleInputName1" class="text-dark font-weight-bold">Project</label>
+                    <select name="project_id" class="form-control bg-white text-dark" required>
+                        <option class="form-control bg-white text-dark" value="">Select</option>
+                        @foreach($projects as $project)
+                            <option value="{{$project->id}}" {{$archive->project_id==$project->id?'selected':''}}>{{$project->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Subject</label>
                     <textarea class="form-control bg-white text-dark" name="subject" id="exampleTextarea1" rows="4" required>{{$archive->subject}}</textarea>

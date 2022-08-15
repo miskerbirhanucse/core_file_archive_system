@@ -12,7 +12,7 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class Users extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -62,9 +62,9 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public const APPROVED = 1;
-    public const PENDING = 0;
-    public const REJECTED = 2;
+     const APPROVED = 1;
+     const PENDING = 0;
+     const REJECTED = 2;
 
     public function department()
     {
@@ -73,6 +73,6 @@ class User extends Authenticatable
 
     public function purchase()
     {
-        return $this->hasMany(Purchase::class);
+        return $this->hasMany(Purchase::class,'user_id');
     }
 }

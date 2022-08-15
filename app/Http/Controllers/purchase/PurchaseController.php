@@ -5,7 +5,7 @@ namespace App\Http\Controllers\purchase;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Purchase;
-use App\Models\User;
+use App\Models\Users;
 use App\Notifications\PurchaseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -38,8 +38,9 @@ class PurchaseController extends Controller
             'department_id' => $request['department_id'],
             'estimated_cost' => $request['estimated_cost']
         ]);
-        $users = User::where('department_id', '=', $request['department_id'])->get();
-        $hrUsers = User::where('department_id', '=', 7)->get();
+        $users = Users::where('department_id', '=', $request['department_id'])->get();
+        $hrUsers = Users::where('department_id', '=', 7)->get();
+        $propertyUsers=Users::where('department_id', '=', 8)->get();
         $message = "New Purchase Request is added by " . auth()->user()->name;
         foreach ($users as $notifiedUser) {
             if ($notifiedUser->hasRole('Head')) {
@@ -47,7 +48,14 @@ class PurchaseController extends Controller
             }
         }
         foreach ($hrUsers as $notifiedUser) {
-            $notifiedUser->notify(new PurchaseRequest($message));
+            if ($notifiedUser->hasRole('Head')) {
+                $notifiedUser->notify(new PurchaseRequest($message));
+            }
+        }
+        foreach ($propertyUsers as $notifiedUser) {
+            if ($notifiedUser->hasRole('Head')) {
+                $notifiedUser->notify(new PurchaseRequest($message));
+            }
         }
 
         return redirect()->route('purchase.list')->with('success', 'Purchase request is created successfully');
@@ -145,7 +153,7 @@ class PurchaseController extends Controller
     {
         $checked = $request->authorize;
         $purchase = Purchase::findOrFAil($id);
-        if ($checked != null) {
+        if ($checked != null && $purchase->approve_by_department_id!= auth()->user()->id) {
             $purchase->authorized = $checked[0];
             $approvedOrRejected = $checked[0] == 1 ? 'authorized' : 'rejected';
             $purchase->authorized_id = auth()->user()->id;
@@ -167,18 +175,18 @@ class PurchaseController extends Controller
     {
         $purchases = Purchase::paginate(10);
 
-        $userPurchases = auth()->user()->purchase->count();
-        $userPurchaseApproved = auth()->user()->purchase->where('authorized', '=', Purchase::APPROVED)->where('approved_by_department', '=', Purchase::APPROVED)->count();
-        $userPurchaseRejected = auth()->user()->purchase->where('approved_by_department', '=', Purchase::REJECTED)->count();
+        $userPurchases = $purchases->count();
+        $userPurchaseApproved = $purchases->where('approved_by_store', '=', Purchase::APPROVED)->count();
+        $userPurchaseRejected = $purchases->where('approved_by_store', '=', Purchase::REJECTED)->count();
 
-        return view('purchase.all_purchase', compact('purchases', 'userPurchases', 'userPurchaseApproved', 'userPurchaseRejected'));
+        return view('purchase.store_list', compact('purchases', 'userPurchases', 'userPurchaseApproved', 'userPurchaseRejected'));
     }
     public function storeList()
     {
         $purchases = Purchase::where([
             ['approved_by_department', Purchase::APPROVED],
             ['authorized', Purchase::APPROVED],
-            ['approved_by_store', Purchase::APPROVED]
+            ['approved_by_store', Purchase::REJECTED]
         ])->paginate(10);
         $totalPurchases = $purchases->count();
         return view('purchase.store_purchase_list', compact('purchases', 'totalPurchases',));
@@ -190,12 +198,16 @@ class PurchaseController extends Controller
         if ($checked != null) {
             $purchase->approved_by_store = $checked[0];
             $approvedOrRejected = $checked[0] == 1 ? 'approved' : 'rejected';
-            $purchase->approve_by_store_id = auth()->user()->id;
-            $purchase->save();
-            $requestedUser = $purchase->user;
-            $message = 'Your Purchase request is ' . $approvedOrRejected;
-            $requestedUser->notify(new PurchaseRequest($message));
-            return redirect()->route('authorize.page.purchase')->with('success', 'Purchase request is ' . $approvedOrRejected . ' successfully');
+            if(auth()->user()->department_id==8){
+                $purchase->approve_by_store_id = auth()->user()->id;
+                $purchase->save();
+                $requestedUser = $purchase->user;
+                $message = 'Your Purchase request is ' . $approvedOrRejected;
+                $requestedUser->notify(new PurchaseRequest($message));
+                return redirect()->route('authorize.page.purchase')->with('success', 'Purchase request is ' . $approvedOrRejected . ' successfully by '.auth()->user()->name);
+            }
+
+           return redirect()->back()->with('error', 'unauthorize action you can\'t approve or reject the purchase');
         }
         return redirect()->back()->with('error', 'Select the check box');
     }
@@ -226,5 +238,23 @@ class PurchaseController extends Controller
             ->markAsRead();
 
         return redirect()->back();
+    }
+    public function isPurchased(Request $request,$id){
+        $checked = $request->storeApprove;
+        $purchase = Purchase::findOrFail($id);
+
+        if ($checked != null) {
+            $approvedOrRejected = $checked[0] == 1 ? 'completed and purchased' : 'not purchased ';
+            if(auth()->user()->department_id==8) {
+                $purchase->is_purchased = $checked[0] === 1 ? 1:0;
+                $purchase->save();
+                $requestedUser = $purchase->user;
+                $message = 'Your Purchase request is ' . $approvedOrRejected;
+                $requestedUser->notify(new PurchaseRequest($message));
+                return redirect()->route('authorize.page.purchase')->with('success', 'Purchase request is ' . $approvedOrRejected . ' successfully'. auth()->user()->name);
+            }
+            return redirect()->back()->with('error', 'unauthorize action you can\'t approve or reject the purchase');
+        }
+        return redirect()->back()->with('error', 'Select the check box');
     }
 }

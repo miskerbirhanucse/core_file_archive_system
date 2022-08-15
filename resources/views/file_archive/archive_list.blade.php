@@ -173,10 +173,32 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-md-6">
                             <h2>Department Archive <b>Lists</b></h2>
+                        </div>
+                            <form id="incoming" action="{{route('archive.search')}}" method="POST">
+                                @csrf
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select name="project_id" class="form-control bg-white border-info text-dark" required>4
+                                                <option class="form-control bg-white text-dark" value="">Select project</option>
+                                                @foreach($projects as $project)
+                                                    <option value="{{$project->id}}">{{$project->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="margin-right: 30px;">
+                                            <input class="border-info text-dark" name="subject" placeholder="Search by subject"/>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </div>
 
-
+                                </div>
+                            </form>
                         </div>
 
                         <!-- <div class="col-sm-4">
@@ -185,7 +207,7 @@
                                 <input type="text" id="search" name="search" class="form-control bg-white text-muted" placeholder="Search&hellip;">
                             </div>
                         </div> -->
-                    </div>
+
                 </div>
                 <table class="table table-striped table-hover table-bordered">
                     <thead>
@@ -200,22 +222,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($archives as $archive)
-                        <tr>
-                            <td>{{ $loop->iteration + $archives->firstItem() - 1 }}</td>
-                            <td>{{$archive->department->name}}</td>
-                            <td>{{$archive->file_type}}</td>
-                            <td>{{$archive->project_name}}</td>
-                            <td>{{$archive->subject}}</td>
-                            <td>{{$archive->ref_no}}</td>
-                            <td>
+                    @if($archives->total() != 0)
+                            @foreach($archives as $archive)
 
-                                <a href="{{route('archive.edit',['id'=>$archive->id])}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <tr>
+                                    <td>{{ $loop->iteration + $archives->firstItem() - 1 }}</td>
+                                    <td>{{$archive->department->name}}</td>
+                                    <td>{{$archive->file_type}}</td>
+                                    <td>{{$archive->project->name}}</td>
+                                    <td>{{$archive->subject}}</td>
+                                    <td>{{$archive->ref_no}}</td>
+                                    <td>
 
-                                <a href="{{route('archive.download',['file'=>$archive->id])}}" class="download" title="Download" data-toggle="tooltip"><i class="material-icons">&#xe2c4;</i></a>
-                            </td>
-                        </tr>
-                        @endforeach
+                                        <a href="{{route('archive.edit',['id'=>$archive->id])}}" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+
+                                        <a href="{{route('archive.download',['file'=>$archive->id])}}" class="download" title="Download" data-toggle="tooltip"><i class="material-icons">&#xe2c4;</i></a>
+                                    </td>
+                                </tr>
+
+                            @endforeach
+                    @else
+                        <td >
+                            No result exist
+                        </td>
+                    @endif
                     </tbody>
                 </table>
                 <div class="d-flex ">

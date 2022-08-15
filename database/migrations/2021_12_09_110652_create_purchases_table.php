@@ -24,7 +24,7 @@ class CreatePurchasesTable extends Migration
             $table->integer('estimated_cost')->nullable();
             $table->string('project_name')->nullable();
             $table->unsignedBigInteger('department_id');
-            $table->boolean('is_purchased')->default(0);
+            $table->boolean('is_purchased')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreignId('approve_by_department_id')->nullable()->references('id')->on('users');
             $table->foreignId('authorized_id')->nullable()->references('id')->on('users');

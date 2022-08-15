@@ -14,12 +14,12 @@ class Purchase extends Model
         'approved_by_department', 'approved_by_store', 'authorized', 'quantity',
         'user_id', 'department_id', 'is_purchased', 'approve_id', 'estimated_cost'
     ];
-    public const APPROVED = 1;
-    public const PENDING = 0;
-    public const REJECTED = 2;
+     const APPROVED = 1;
+     const PENDING = 0;
+     const REJECTED = 2;
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Users::class, 'user_id');
     }
 
     public function department()
@@ -28,14 +28,14 @@ class Purchase extends Model
     }
     public function approvedByDepartment()
     {
-        return $this->belongsTo(User::class, 'approve_by_department_id');
+        return $this->belongsTo(Users::class, 'approve_by_department_id');
     }
     public function approvedByStore()
     {
-        return $this->belongsTo(User::class, 'approve_by_store_id');
+        return $this->belongsTo(Users::class, 'approve_by_store_id');
     }
     public function authorizedBy()
     {
-        return $this->belongsTo(User::class, 'authorized_id');
+        return $this->belongsTo(Users::class, 'authorized_id');
     }
 }

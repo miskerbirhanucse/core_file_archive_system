@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\User;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
@@ -16,11 +16,11 @@ class AdminController extends Controller
     //
     public function getAllUsers()
     {
-        $users = User::where('is_admin', 0)->paginate(10);
+        $users = Users::where('is_admin', 0)->paginate(10);
 
-        $approved = User::where('approved', User::APPROVED)->count();
-        $pending = User::where('approved', User::PENDING)->count();
-        $rejected = User::where('approved', User::REJECTED)->count();
+        $approved = Users::where('approved', Users::APPROVED)->count();
+        $pending = Users::where('approved', Users::PENDING)->count();
+        $rejected = Users::where('approved', Users::REJECTED)->count();
         return view('admin.all_users_page', compact('users', 'approved', 'pending', 'rejected'));
     }
     public function updateUser(Request $request, $id)
@@ -31,14 +31,14 @@ class AdminController extends Controller
         $role_ids = Role::whereIn('name', $request->input('roles', []))->pluck('id');
 
         if ($request->approved == 'on' && $request->rejected == null) {
-            $approved = User::APPROVED;
+            $approved = Users::APPROVED;
         } elseif ($request->rejected == 'on' && $request->approved == null) {
-            $approved = User::REJECTED;
+            $approved = Users::REJECTED;
         } else {
-            $approved = User::PENDING;
+            $approved = Users::PENDING;
         }
 
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         $user->approved = $approved;
 
         //
@@ -54,13 +54,13 @@ class AdminController extends Controller
 
     public function editUser($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         return view('admin.edit_user', compact('user'));
     }
 
     public function deleteUser($id)
     {
-        $user = User::findOrFail($id)->delete();
+        $user = Users::findOrFail($id)->delete();
         if ($user) {
             return redirect('/admin/users')->with('success', 'successfully');
         }

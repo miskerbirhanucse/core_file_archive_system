@@ -33,20 +33,44 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'store approve request']);
 
         //create role
-        Role::create(['name' => 'GM']);
-        Role::create(['name' => 'Head']);
-        Role::create(['name' => 'Team Leader']);
-        Role::create(['name' => 'Team']);
-        Role::create(['name' => 'Secretary']);
+        $role1=Role::create(['name' => 'GM']);
+        $role2= Role::create(['name' => 'Head']);
+       $role3=  Role::create(['name' => 'Team Leader']);
+       $role4=  Role::create(['name' => 'Team']);
+       $role5=  Role::create(['name' => 'Secretary']);
         $role3 = Role::create(['name' => 'Super-Admin']);
 
-        $user = \App\Models\User::factory()->create([
+        $user = \App\Models\Users::create([
             'name' => 'super admin',
             'email' => 'superadmin@example.com',
-            'password' => Crypt::encryptString('123456789'),
+            'password' => Crypt::encryptString('superadmin'),
             'is_admin' => 1,
             'approved' => 1,
         ]);
+        $user1 = \App\Models\Users::create([
+            'name' => 'gm',
+            'email' => 'gm@example.com',
+            'password' => Crypt::encryptString('123456789'),
+            'department_id'=>1,
+            'approved' => 1,
+        ]);
+        $user2 = \App\Models\Users::create([
+            'name' => 'hd',
+            'email' => 'hd@example.com',
+            'password' => Crypt::encryptString('123456789'),
+            'department_id'=>3,
+            'approved' => 1,
+        ]);
+        $user3 = \App\Models\Users::create([
+            'name' => 'team',
+            'email' => 'team@example.com',
+            'password' => Crypt::encryptString('123456789'),
+            'department_id'=>3,
+            'approved' => 1,
+        ]);
         $user->assignRole($role3);
+        $user1->assignRole($role1);
+        $user2->assignRole($role2);
+        $user3->assignRole($role4);
     }
 }

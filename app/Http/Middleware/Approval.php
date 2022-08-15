@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
+use App\Models\Users;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +18,7 @@ class Approval
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && $request->user()->approved == User::REJECTED || $request->user()->approved == User::PENDING) {
+        if (auth()->check() && $request->user()->approved == Users::REJECTED || $request->user()->approved == Users::PENDING) {
             Auth::guard('web')->logout();
             return redirect()->route('login')->with('loginredirect', trans('Your account needs admin approval'));
         }

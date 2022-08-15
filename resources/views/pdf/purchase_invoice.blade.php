@@ -96,18 +96,18 @@
 
     <div class="row" style=" position: fixed;bottom: 40px;right: 0;width: 100%;">
         <div class="column">
-            <p class="fw-bold">Requested by: <u>Mamo</u></p>
-            <p class="fw-bold">Date: <u>21/09/2021</u></p>
+            <p class="fw-bold">Requested by: {{$purchase->user->name}}</p>
+            <!-- <p class="fw-bold">Date: <u>21/09/2021</u></p> -->
         </div>
         <div class="column">
 
-            <p>Approved by:<input type="checkbox" name="" checked id=""></p>
+            <p>Approved by:<input type="checkbox" name="" checked id="">{{$purchase->approvedByDepartment->name}}</p>
 
-            <p class="fw-bold">Date: <u>21/09/2021</u></p>
+            <!-- <p class="fw-bold">Date: <u>21/09/2021</u></p> -->
         </div>
         <div class="column">
-            <p class="fw-bold">Authorized by: <input type="checkbox" name="" checked id=""></p>
-            <p class="fw-bold">Date: <u>21/09/2021</u></p>
+            <p class="fw-bold">Authorized by: <input type="checkbox" name="" checked id="">{{$purchase->authorizedBy->name}}</p>
+            <!-- <p class="fw-bold">Date: <u>21/09/2021</u></p> -->
         </div>
 
     </div>

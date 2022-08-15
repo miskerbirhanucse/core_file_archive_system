@@ -30,32 +30,29 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card shadow p-3 mb-5 bg-white rounded">
         <div class="card-body ">
-            <h4 class="card-title text-dark display-4">Letter Form</h4>
+            <h4 class="card-title text-dark display-4">Incoming Letter Form</h4>
             <form id="fileUploadForm" class="forms-sample" enctype="multipart/form-data" method="POST" action="{{ route('letter.store')}}">
                 @csrf
 
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Project Name</label>
-                    <input type="text" class="form-control bg-white text-dark" name="project_name" id="exampleInputName1" placeholder="" required>
+                    <select name="project_id" class="form-control bg-white text-dark" required>
+                        <option class="form-control bg-white text-dark" value="">Select</option>
+                         @foreach($projects as $project)
+                          <option value="{{$project->id}}">{{$project->name}}</option>
+                        @endforeach
+                    </select>
+
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Subject</label>
                     <textarea class="form-control bg-white text-dark" name="subject" id="exampleTextarea1" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Ref</label>
+                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Ref No</label>
                     <input type="text" class="form-control bg-white text-dark" name="ref" id="exampleInputName1" placeholder="" required>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Letter Type</label>
 
-                    <select name="letter_type" class="form-control bg-white text-dark" required>
-                        <option class="form-control bg-white text-dark" value="">Select</option>
-                        <option value="In going Letter">In going Letter</option>
-                        <option value="Out going Letter">Out going Letter</option>
-
-                    </select>
-                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Remark(optional) </label>
                     <textarea type="text" class="form-control bg-white text-dark" name="remark" id="exampleInputName1" placeholder=""></textarea>
@@ -64,8 +61,15 @@
                     @error('letter_path')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
-                    <label for="" class="text-dark font-weight-bold">Select The File</label>
+                    <label for="" class="text-dark font-weight-bold">Select Cover Letter</label>
                     <input type="file" name="letter_path" id="" class="form-control bg-white text-dark" required>
+                </div>
+                <div class="form-group">
+                    @error('letter_path')
+                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                    @enderror
+                    <label for="" class="text-dark font-weight-bold">Attach file</label>
+                    <input type="file" name="letter_attach_path" id="" class="form-control bg-white text-dark" >
                 </div>
 
                     <div class="progress bg-white">

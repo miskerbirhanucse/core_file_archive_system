@@ -13,6 +13,9 @@ class Department extends Model
     ];
 
     public function users(){
-        return $this->hasMany(User::class);
+        return $this->hasMany(Users::class);
+    }
+    public function inComingLetters(){
+        return $this->belongsToMany(InComingLetter::class)->using(DepartmentInComingLetter::class);
     }
 }

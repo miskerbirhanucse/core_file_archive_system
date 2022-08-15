@@ -5,6 +5,7 @@ namespace App\Http\Controllers\file_archive;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\FileArchive;
+use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
@@ -18,12 +19,14 @@ class FileArchiveController extends Controller
     public function create()
     {
         $departments = Department::all();
-        return view("file_archive.create_file_archive", ['departments' => $departments]);
+        $projects=Project::all();
+        return view("file_archive.create_file_archive", ['departments'=>$departments,'projects'=>$projects]);
     }
     public function allArchive()
     {
-        $archives = FileArchive::where('user_id', auth()->user()->id)->orderBy('project_name')->paginate(10);
-        return view('file_archive.archive_list', compact('archives'));
+        $projects=Project::all();
+        $archives = FileArchive::where('user_id', auth()->user()->id)->orderBy('subject')->paginate(10);
+        return view('file_archive.archive_list', ['archives'=>$archives,'projects'=>$projects]);
     }
     public function allArchiveAdmin()
     {
@@ -44,7 +47,7 @@ class FileArchiveController extends Controller
         $version = $request->input('version');
 
         $validate = Validator::make($request->all(), [
-            'project_name' => 'required',
+            'project_id' => 'required',
             'subject' => 'required',
             'ref' => 'required',
             'file_type' => 'required',
@@ -63,7 +66,7 @@ class FileArchiveController extends Controller
 
         FileArchive::create([
             'subject' => $request->input('subject'),
-            'project_name' => $request->project_name,
+            'project_id' => $request->project_id,
             'ref_no' => $request->ref,
             'file_type' => $request->file_type,
             'user_id' => auth()->user()->id,
@@ -174,14 +177,15 @@ class FileArchiveController extends Controller
     {
         $archive = FileArchive::findOrFail($id);
         $departments = Department::all();
-        return view('file_archive.edit_archive',  ['departments' => $departments, 'archive' => $archive]);
+        $projects=Project::all();
+        return view('file_archive.edit_archive',  ['departments' => $departments, 'archive' => $archive,'projects'=>$projects]);
     }
     public function updateArchive(Request $request, $id)
     {
         $archive = FileArchive::findOrFail($id);
 
         $archive->subject = $request->input('subject');
-        $archive->project_name = $request->project_name;
+        $archive->project_id = $request->project_id;
         $archive->ref_no = $request->ref;
         $archive->file_type = $request->file_type;
         $archive->report_type = $request->input('report_type');
@@ -218,5 +222,11 @@ class FileArchiveController extends Controller
         } else {
             return redirect()->route('show.archive.report')->with('error', 'No file is archived in provided date');
         }
+    }
+    public function searchArchive(Request $request){
+        $archives=FileArchive::where('project_id','=',$request->project_id)->where('subject','like', '%'.$request->subject.'%')->paginate(10);
+        $projects=Project::all();
+
+        return view('file_archive.archive_list',['archives'=>$archives,'projects'=>$projects]);
     }
 }

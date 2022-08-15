@@ -48,7 +48,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <p for="exampleInputEmail3" class="text-dark display-5">Is Approved:
+                        <p for="exampleInputEmail3" class="text-dark display-5">Is approved:
                             @if($purchase->approved_by_department==0)
                             <b>Pending</b>
                             @elseif($purchase->approved_by_department==1)
@@ -73,7 +73,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <p for="exampleInputEmail3" class="text-dark display-5">Is Authorized:
+                        <p for="exampleInputEmail3" class="text-dark display-5">Is authorized:
                             @if($purchase->authorized==0)
                             <b>Pending</b>
                             @elseif($purchase->authorized==1)
@@ -98,13 +98,13 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <p for="exampleInputEmail3" class="text-dark display-5">Is Approved By Store:
+                        <p for="exampleInputEmail3" class="text-dark display-5">Is available in store:
                             @if($purchase->approved_by_store==0)
                             <b>Pending</b>
                             @elseif($purchase->approved_by_store==1)
-                            <b>Approved</b>
+                            <b>Yes</b>
                             @else
-                            <b>Rejected</b>
+                            <b>No</b>
                             @endif
                         </p>
                     </div>
@@ -176,24 +176,53 @@
             @can('authorize request')
             <button type="submit" form="authorize" class="btn btn-primary mr-2" onsubmit="authorize">Authorize</button>
             @endcan
-
+            @if($purchase->approved_by_store_id == null)
             <form action="{{ route('store.approve.purchase',['id'=>$purchase->id ])}}" method="post" id="storeApprove">
                 @csrf
                 {{method_field('PUT')}}
                 @can('export request')
                 <div class="col-md-6">
                     <div class="container">
-                        <h6 class="text-dark display-5 display-5">Store Approve Request</h6>
+                        <h6 class="text-dark display-5 display-5">Store available</h6>
                     </div>
                     <div class="form-group">
                         <div class="form-check form-check-success">
                             <label class="form-check-label">
-                                <input type="checkbox" name="storeApprove[]" class="form-check-input" value="1"> Authorize
+                                <input type="checkbox" name="storeApprove[]" class="form-check-input" value="1"> Yes
                             </label>
                         </div>
                         <div class="form-check form-check-danger">
                             <label class="form-check-label">
-                                <input type="checkbox" name="storeApprove[]" class="form-check-input" value="2"> Reject
+                                <input type="checkbox" name="storeApprove[]" class="form-check-input" value="2"> No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+               
+            </form>
+            <button type="submit" form="storeApprove" class="btn btn-primary mr-2" onsubmit="authorize">Approve</button>
+            @endcan
+            @endif
+
+            @if($purchase->approved_by_store != 0)
+            <form action="{{ route('store.isPurchased',['id'=>$purchase->id ])}}" method="post" id="isPurchased">
+                @csrf
+                {{method_field('PUT')}}
+                @can('export request')
+                <div class="col-md-6">
+                    <div class="container">
+                        <h6 class="text-dark display-5 display-5">Is purchase</h6>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check form-check-success">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="storeApprove[]" class="form-check-input" value="1"> Yes
+                            </label>
+                        </div>
+                        <div class="form-check form-check-danger">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="storeApprove[]" class="form-check-input" value="2"> No
                             </label>
                         </div>
                     </div>
@@ -202,9 +231,9 @@
                 @endcan
             </form>
             @can('export request')
-            <button type="submit" form="storeApprove" class="btn btn-primary mr-2" onsubmit="authorize">Store Approve</button>
+            <button type="submit" form="isPurchased" class="btn btn-primary mr-2" >Approve</button>
             @endcan
-
+            @endif
         </div>
     </div>
 </div>

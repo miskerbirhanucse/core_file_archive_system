@@ -34,28 +34,25 @@
             <form id="fileUploadForm" class="forms-sample" enctype="multipart/form-data" method="POST" action="{{ route('letter.update.secretary',['id'=>$letter->id])}}">
                 @method('put')
                 @csrf
-                <div class="form-group">
+               <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Project Name</label>
-                    <input type="text" class="form-control bg-white text-dark" value="{{$letter->project_name}}" name="project_name" id="exampleInputName1" placeholder="" required>
+                    <select name="project_id"  class="form-control bg-white text-dark" required>
+                        <option class="form-control bg-white text-dark">Select</option>
+                         @foreach($projects as $project)
+                          <option value="{{$project->id}}"{{$letter->project_id==$letter->id?'selected':''}}>{{$project->name}}</option>
+                         @endforeach
+                    </select>
+
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Subject</label>
                     <textarea class="form-control bg-white text-dark" name="subject" id="exampleTextarea1" rows="4" required>{{$letter->subject}}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Ref</label>
+                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Ref No</label>
                     <input type="text" class="form-control bg-white text-dark" name="ref" id="exampleInputName1"value="{{$letter->ref_no}}" placeholder="" required>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Letter Type</label>
 
-                    <select name="letter_type" class="form-control bg-white text-dark" required>
-                      <optgroup label="Select letter type">
-                        <option value="In going Letter">In going Letter</option>
-                        <option value="Out going Letter">Out going Letter</option>
-                      </optgroup>
-                    </select>
-                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Remark(optional) </label>
                     <textarea type="text" class="form-control bg-white text-dark" name="remark" id="exampleInputName1" placeholder="">{{$letter->remark}}</textarea>

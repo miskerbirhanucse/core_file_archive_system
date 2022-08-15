@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>CORE_DAMS</title>
+    <title>CORE_DRAMS</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{asset('backend/asset/vendors/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/asset/vendors/css/vendor.bundle.base.css')}}">
@@ -21,7 +21,8 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{asset('backend/asset/css/style.css')}}">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{asset('backend/asset/images/favicon.png')}}" />
+
+    <link href="{{ asset('landing/asset/img/favicon3.png')}}" rel="icon">
 
     <!-- link bootstrap -->
 

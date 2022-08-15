@@ -29,6 +29,7 @@
                 <div class="row">
                     <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0 text-dark"> {{$totalLetter-$actionTaken}}</h3>
 
                         </div>
                     </div>
@@ -38,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <h6 class="text-muted font-weight-normal">Approved letter Request</h6>
+                <h6 class="text-muted font-weight-normal">On Process Letter</h6>
             </div>
         </div>
     </div>
@@ -48,6 +49,8 @@
                 <div class="row">
                     <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
+                        <h3 class="mb-0 text-dark">  {{$actionTaken}}</h3>
+
                         </div>
                     </div>
                     <div class="col-3">
@@ -56,37 +59,42 @@
                         </div>
                     </div>
                 </div>
-                <h6 class="text-muted font-weight-normal">Pending letter Request</h6>
+                <h6 class="text-muted font-weight-normal">Action Taken</h6>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
-        <div class="card shadow p-5 mb-5 bg-white rounded">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-9">
-                        <div class="d-flex align-items-center align-self-start">
 
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="icon icon-box-danger ">
-                            <span class="mdi mdi-account-multiple icon-item"></span>
-                        </div>
-                    </div>
-                </div>
-                <h6 class="text-muted font-weight-normal">Rejected letter Request</h6>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card shadow p-5 mb-5 bg-white rounded">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <h4 class="card-title text-dark">All letter Request</h4>
+                    <h4 class="card-title text-dark">All Incoming letters </h4>
                 </div>
+                <form id="incoming" action="{{route('incoming.search')}}" method="POST">
+                    @csrf
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select name="project_id" class="form-control bg-white border-info text-dark" required>4
+                                    <option class="form-control bg-white text-dark" value="">Select project</option>
+                                    @foreach($projects as $project)
+                                        <option value="{{$project->id}}">{{$project->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3" style="margin-right: 30px;">
+                                <input class="border-info text-dark" name="subject" placeholder="Search by subject"/>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
             </div>
 
 
@@ -98,6 +106,7 @@
                             <th class="text-muted"> # </th>
                             <th class="text-muted"> Project Name </th>
                             <th class="text-muted"> Subject </th>
+                            <th class="text-muted"> Action Taken</th>
                             <th class="text-muted"> Uploaded User </th>
                             <th class="text-muted"> Uploaded Time</th>
                             <th class="text-muted">Action</th>
@@ -110,11 +119,22 @@
                             @foreach($letters as $letter)
                             <tr>
                                 <td class="py-1 text-muted">
-                                    {{ $loop->iteration + $letters->firstItem() - 1 }}
+
+                                        {{$loop->iteration }}
+
                                 </td>
-                                <td class="text-muted">{{$letter->project_name}} </td>
+
+                                <td class="text-muted">{{$letter->project->name}} </td>
                                 <td>
                                     {{$letter->subject}}
+                                </td>
+                                <td class="">
+                                    @if($letter->gm_created_at != null)
+                                        <input type="checkbox" class="border-info"   checked/>
+                                    @else
+                                        <input type="checkbox"  />
+                                    @endif
+
                                 </td>
                                 <td class="text-muted">{{$letter->uploader->name}}</td>
 
@@ -134,7 +154,9 @@
 
                     </tbody>
                 </table>
-                {{$letters->links()}}
+                @if(!is_array($letters))
+                    {{$letters->links()}}
+                @endif
             </div>
         </div>
     </div>

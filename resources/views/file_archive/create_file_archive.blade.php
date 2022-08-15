@@ -43,9 +43,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Project Name</label>
-                    <input type="text" class="form-control bg-white text-dark" name="project_name" id="exampleInputName1" placeholder="" required>
+                    <label for="exampleInputName1" class="text-dark font-weight-bold">Project</label>
+                    <select name="project_id" class="form-control bg-white text-dark" required>
+                        <option class="form-control bg-white text-dark" value="">Select</option>
+                        @foreach($projects as $project)
+                        <option value="{{$project->id}}">{{$project->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Subject</label>
                     <textarea class="form-control bg-white text-dark" name="subject" id="exampleTextarea1" rows="4" required></textarea>
@@ -62,8 +68,6 @@
 
                         <option value="Technical Proposal">Technical Proposal</option>
                         <option value="Cost Estimate">Cost Estimate</option>
-                        <option value="In going Letter">In going Letter</option>
-                        <option value="Out going Letter">Out going Letter</option>
                         <option value="Report">Report</option>
                     </select>
                 </div>

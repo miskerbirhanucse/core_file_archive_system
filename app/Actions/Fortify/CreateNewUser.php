@@ -3,7 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\Team;
-use App\Models\User;
+use App\Models\Users;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -32,12 +32,12 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return DB::transaction(function () use ($input) {
-            return tap(User::create([
+            return tap(Users::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Crypt::encryptString($input['password']),
                 'department_id' => $input['department_id'],
-            ]), function (User $user) {
+            ]), function (Users $user) {
                 // $this->createTeam($user);
             });
         });
