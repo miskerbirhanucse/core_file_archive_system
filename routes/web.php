@@ -8,6 +8,8 @@ use App\Http\Controllers\LetterController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\purchase\PurchaseController;
 use App\Http\Controllers\InComingLetterController;
+use App\Http\Controllers\OutGoingLetterController;
+use App\Models\OutGoingLetter;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +79,8 @@ Route::prefix('archive')->middleware('auth')->group(function () {
 
 //letter
 Route::prefix('letter')->middleware('auth')->group(function () {
+    //incoming letters
     Route::get('/newIncomingLetter',[LetterController::class,'showCreatePage'])->name('letter');
-    Route::get('/newOutgoingLetter',[LetterController::class,'showCreatePage'])->name('letter.outgoing');
     Route::get('/list',[LetterController::class,'showListPage'])->name('letter.list');
     Route::post('/store',[LetterController::class,'storeLetter'])->name('letter.store');
     Route::get('/download/{id}', [LetterController::class, 'download'])->name('letter.download');
@@ -89,8 +91,18 @@ Route::prefix('letter')->middleware('auth')->group(function () {
     Route::get('/admin/search', [LetterController::class, 'adminSearch'])->name('letter.admin.search');
     Route::get('/gm/list',[LetterController::class,'showGMList'])->name('letter.gm.cc');
     Route::put('/gm/send/{id}',[LetterController::class,'sendLetter'])->name('letter.gm.send');
-    Route::get('/delete/{id}', [LetterController::class, 'deleteArchive'])->name('letter.delete');
+    Route::get('/incoming/delete/{id}', [LetterController::class, 'deleteArchive'])->name('letter.delete');
     Route::get('{id}/letter', [LetterController::class, 'showDetail'])->name('letter.detail');
+
+    //outgoing letters
+    Route::get('/newOutgoingLetter',[OutGoingLetterController::class,'showCreatePage'])->name('letter.outgoing');
+    Route::post('/store/outgoingletter',[OutGoingLetterController::class,'storeLetter'])->name('outgoingLetter.store');
+    Route::get('/outGoingList',[OutGoingLetterController::class,'departmentOutGoingList'])->name('outGoing.department');
+    Route::get('/outgoing/download/{id}', [OutGoingLetterController::class, 'download'])->name('outGoing.download');
+    Route::get('/outGoing/{id}/edit', [OutGoingLetterController::class, 'editLetter'])->name('outGoing.edit');
+    Route::put('/update/{id}', [OutGoingLetterController::class, 'updateLetter'])->name('outGoing.update');
+    Route::get('/all/outgoingletter',[OutGoingLetterController::class,'outGoingLists'])->name('outGoing.all');
+    Route::get('/delete/{id}',[OutGoingLetterController::class,'deleteOutGoingLetter'])->name('outGoing.delete');
 
     Route::get('/dp',[LetterController::class,'showManage'])->name('letter.manage');
     Route::put('/dp/{id}',[LetterController::class,'depSendLetter'])->name('dp.letter');

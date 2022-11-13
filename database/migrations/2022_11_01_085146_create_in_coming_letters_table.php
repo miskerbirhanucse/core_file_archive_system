@@ -14,8 +14,9 @@ class CreateInComingLettersTable extends Migration
     public function up()
     {
         Schema::create('in_coming_letters', function (Blueprint $table) {
-           $table->id();
+            $table->id();
             $table->string('subject');
+            $table->unsignedBigInteger('secretary_added_department');
             $table->unsignedBigInteger('department_user')->nullable();
             $table->unsignedBigInteger('other_department_user')->nullable();
             $table->unsignedBigInteger('uploader_user_id');
@@ -39,6 +40,7 @@ class CreateInComingLettersTable extends Migration
             $table->timestamp('other_dept_created_at')->nullable();
             $table->timestamps();
 
+            $table->foreign('secretary_added_department')->references('id')->on('departments')->onDelete('cascade');
             $table->foreign('department_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('other_department_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('uploader_user_id')->references('id')->on('users')->onDelete('cascade');
@@ -46,7 +48,6 @@ class CreateInComingLettersTable extends Migration
             $table->foreign('action_taker_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('other_action_taker_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-
         });
     }
 

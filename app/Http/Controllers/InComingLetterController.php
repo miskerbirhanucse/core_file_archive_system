@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\InComingLetter;
 use App\Models\Project;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class InComingLetterController extends Controller
 {
     public function searchInComingLetter(Request $request){

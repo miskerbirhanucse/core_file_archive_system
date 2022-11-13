@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'department_id'
+        'name', 'department_id','project_id'
     ];
      public function department(){
         return $this->belongsTo(Department::class,'department_id');

@@ -9,6 +9,10 @@
                <div class="form-group">
                    <p for="exampleInputName1" class="text-dark display-5 ">Uploaded By: <b>{{$letter->uploader->name}} </b></p>
                </div>
+            <div class="form-group">
+                <p for="exampleInputName1" class="text-dark display-5 ">Department: <b>{{$letter->secretaryAddedDepartment->name}} </b>
+                </p>
+            </div>
                <div class="form-group">
                    <p for="exampleInputEmail3" class="text-dark display-5 ">Project: <b>{{$letter->project->name}}</b></p>
 

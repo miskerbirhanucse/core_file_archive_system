@@ -20,6 +20,10 @@
                     <label for="exampleInputName1" class="text-dark font-weight-bold">Project Name</label>
                     <input class="form-control bg-white text-dark" name="project_name" id="exampleTextarea1"/>
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputName1" class="text-dark font-weight-bold">Project Id</label>
+                    <input class="form-control bg-white text-dark" name="project_id" id="exampleTextarea1"/>
+                </div>
 
 
 

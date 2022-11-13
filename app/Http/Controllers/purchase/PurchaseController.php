@@ -103,6 +103,7 @@ class PurchaseController extends Controller
     public function deletePurchase($id)
     {
         $purchase = Purchase::findOrFail($id);
+        $purchase->delete();
         if ($purchase) {
             return redirect()->route('purchase.list')->with('success', 'Purchase request is deleted successfully');
         }
@@ -209,7 +210,7 @@ class PurchaseController extends Controller
 
            return redirect()->back()->with('error', 'unauthorize action you can\'t approve or reject the purchase');
         }
-        return redirect()->back()->with('error', 'Select the check box');
+        return redirect()->back()->with('error', 'unauthorize action you can\'t approve or reject the purchase');
     }
     public function exportPDF(Request $request)
     {
@@ -225,7 +226,7 @@ class PurchaseController extends Controller
             return $pdf->stream('pdf_file.pdf');
             // return view('pdf.purchase_invoice');
         }
-        return redirect()->back()->with('error', 'Select the check box');
+        return redirect()->back()->with('error', 'unauthorize action you can\'t approve or reject the purchase');
     }
     public function markNotification($id)
     {
@@ -246,7 +247,7 @@ class PurchaseController extends Controller
         if ($checked != null) {
             $approvedOrRejected = $checked[0] == 1 ? 'completed and purchased' : 'not purchased ';
             if(auth()->user()->department_id==8) {
-                $purchase->is_purchased = $checked[0] === 1 ? 1:0;
+                $purchase->is_purchased = $checked[0] == 1 ? 1:0;
                 $purchase->save();
                 $requestedUser = $purchase->user;
                 $message = 'Your Purchase request is ' . $approvedOrRejected;

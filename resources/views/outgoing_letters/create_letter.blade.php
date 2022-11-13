@@ -30,9 +30,9 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card shadow p-3 mb-5 bg-white rounded">
         <div class="card-body ">
-            <h4 class="card-title text-dark display-4">File Archive Form</h4>
+            <h4 class="card-title text-dark display-4">Outgoing letter</h4>
             <form id="fileUploadForm" class="forms-sample" enctype="multipart/form-data" method="POST"
-                action="{{ route('archive.store')}}">
+                action="{{ route('outgoingLetter.store')}}">
                 @csrf
                 <div class="form-group">
                     <label for="exampleInputName1" class="text-dark font-weight-bold">Department</label>
@@ -55,68 +55,36 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail3" class="text-dark font-weight-bold">Subject</label>
-                    <textarea class="form-control bg-white text-dark" name="subject" placeholder="Enter subject" id="exampleTextarea1" rows="4"
-                        required></textarea>
+                    <textarea class="form-control bg-white text-dark" name="subject" id="exampleTextarea1" rows="4"
+                       placeholder="Enter the subject" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Reference number</label>
+                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Reference Number</label>
                     <input type="text" class="form-control bg-white text-dark" name="ref" id="exampleInputName1"
-                        placeholder="enter reference number" required>
+                        placeholder="Enter reference number" required>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">File Type</label>
 
-                    <select name="file_type" class="form-control bg-white text-dark" required>
-                        <option class="form-control bg-white text-dark" value="">Select file type</option>
-
-                        <option value="Technical Proposal">Technical Proposal</option>
-                        <option value="Cost Estimate">Cost Estimate</option>
-                        <option value="Report">Report</option>
-                    </select>
+                <div class="form-group">
+                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Remark(optional) </label>
+                    <textarea type="text" class="form-control bg-white text-dark" name="remark" id="exampleInputName1"
+                        placeholder=""></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail3" class="text-dark font-weight-bold">Report Type</label>
-                    <input type="text" class="form-control bg-white text-dark" name="report_type" id="exampleInputName1"
-                        placeholder="">
-                </div>
-                <div class="form-group">
-                    @error('file_path')
+                    @error('letter_path')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
-                    <label for="" class="text-dark font-weight-bold">Select The File</label>
-                    <input type="file" name="file_path" id="" class="form-control bg-white text-dark" required>
+                    <label for="" class="text-dark font-weight-bold">Attach file</label>
+                    <input type="file" name="letter_path" id="" class="form-control bg-white text-dark" required>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="container">
-                            <h6 class="text-dark">File Version</h6>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check form-check-primary">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="version[]" class="form-check-input"
-                                        value="draft">Draft</label>
-                            </div>
-                            <div class="form-check form-check-success">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="version[]" class="form-check-input"
-                                        value="final">Final</label>
-                            </div>
-                            <div class="form-check form-check-info">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="version[]" class="form-check-input" value="other">
-                                    Other</label>
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="progress bg-white">
-                        <div class="bar"></div>
 
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary mr-2">Store</button>
-                    <!-- <div class="form-group ">
+                <div class="progress bg-white">
+                    <div class="bar"></div>
+
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary mr-2">Store</button>
+                <!-- <div class="form-group ">
                     <div class="progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-wight" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
                     </div>

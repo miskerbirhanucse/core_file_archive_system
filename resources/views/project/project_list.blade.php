@@ -191,6 +191,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th class="text-dark" style="width: 10%">Project Id </i></th>
                             <th class="text-dark" style="width: 10%">Project Name </i></th>
                             <th class="text-dark" style="width: 10%">Department</th>
 
@@ -202,6 +203,7 @@
                         @foreach($projects as $project)
                         <tr>
                             <td>{{ $loop->iteration + $projects->firstItem() - 1 }}</td>
+                            <td>{{$project->project_id}}</td>
                             <td>{{$project->name}}</td>
                             <td>{{$project->department->name}}</td>
                             <td>{{$project->created_at->diffForHumans()}}</td>

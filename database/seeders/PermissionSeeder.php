@@ -47,30 +47,7 @@ class PermissionSeeder extends Seeder
             'is_admin' => 1,
             'approved' => 1,
         ]);
-        $user1 = \App\Models\Users::create([
-            'name' => 'gm',
-            'email' => 'gm@example.com',
-            'password' => Crypt::encryptString('123456789'),
-            'department_id'=>1,
-            'approved' => 1,
-        ]);
-        $user2 = \App\Models\Users::create([
-            'name' => 'hd',
-            'email' => 'hd@example.com',
-            'password' => Crypt::encryptString('123456789'),
-            'department_id'=>3,
-            'approved' => 1,
-        ]);
-        $user3 = \App\Models\Users::create([
-            'name' => 'team',
-            'email' => 'team@example.com',
-            'password' => Crypt::encryptString('123456789'),
-            'department_id'=>3,
-            'approved' => 1,
-        ]);
+       
         $user->assignRole($role3);
-        $user1->assignRole($role1);
-        $user2->assignRole($role2);
-        $user3->assignRole($role4);
     }
 }

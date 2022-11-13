@@ -206,7 +206,7 @@
                             <td>{{ $loop->iteration + $archives->firstItem() - 1 }}</td>
                             <td>{{$archive->department->name}}</td>
                             <td>{{$archive->file_type}}</td>
-                            <td>{{$archive->project_name}}</td>
+                            <td>{{$archive->project->name}}</td>
                             <td>{{$archive->subject}}</td>
                             <td>{{$archive->ref_no}}</td>
                             <td>

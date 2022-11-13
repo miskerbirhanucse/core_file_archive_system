@@ -174,9 +174,9 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-md-6">
-                            <h2>Department Archive <b>Lists</b></h2>
+                            <h2>Outgoing Letters <b>Lists</b></h2>
                         </div>
-                        <form id="incoming" action="{{route('archive.search')}}" method="POST">
+                        <form id="incoming" action="{{route('letter.search')}}" method="POST">
                             @csrf
                             <div class="col-md-12">
                                 <div class="row">
@@ -217,7 +217,6 @@
                     <tr>
                         <th>#</th>
                         <th class="text-dark" style="width: 10%">Department </i></th>
-                        <th class="text-dark" style="width: 10%">File Type</th>
                         <th class="text-dark">Project Name </i></th>
                         <th class="text-dark" style="width: 50%">Subject</th>
                         <th class="text-dark">Ref_No </i></th>
@@ -225,23 +224,26 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if($archives->total() != 0)
-                        @foreach($archives as $archive)
+                    @if($letters->total() != 0)
+                        @foreach($letters as $letter)
 
                             <tr>
-                                <td>{{ $loop->iteration + $archives->firstItem() - 1 }}</td>
-                                <td>{{$archive->department->name}}</td>
-                                <td>{{$archive->file_type}}</td>
-                                <td>{{$archive->project->name}}</td>
-                                <td>{{$archive->subject}}</td>
-                                <td>{{$archive->ref_no}}</td>
+                                <td>{{ $loop->iteration + $letters->firstItem() - 1 }}</td>
+                                <td>{{$letter->department->name}}</td>
+                                <td>{{$letter->project->name}}</td>
+                                <td>{{$letter->subject}}</td>
+                                <td>{{$letter->ref_no}}</td>
                                 <td>
-                                    @if(auth()->user()->id==$archive->user_id)
-                                        <a href="{{route('archive.edit',['id'=>$archive->id])}}" class="edit"
+                                    @if(auth()->user()->id==$letter->uploader_user_id)
+                                        <a href="{{route('outGoing.edit',['id'=>$letter->id])}}" class="edit"
                                            title="Edit"
                                            data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                     @endif
-                                    <a href="{{route('archive.download',['file'=>$archive->id])}}" class="download"
+                                    @hasanyrole('GM|Super-Admin')
+                                    <a href="{{route('outGoing.delete',['id'=>$letter->id])}}" class="delete"
+                                       title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                                    @endhasanyrole
+                                    <a href="{{route('outGoing.download',['id'=>$letter->id])}}" class="download"
                                        title="Download" data-toggle="tooltip"><i class="material-icons">&#xe2c4;</i></a>
                                 </td>
                             </tr>
@@ -255,7 +257,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex ">
-                    {!!$archives->links()!!}
+                    {!!$letters->links()!!}
                 </div>
                 <!-- <div class="clearfix">
                     <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
@@ -279,9 +281,9 @@
             }
         });
         $(document).ready(function() {
-            fetch_archive_data();
+            fetch_letter_data();
 
-            function fetch_archive_data(query = '') {
+            function fetch_letter_data(query = '') {
                 $.ajaxSetup({
 
                     headers: {
@@ -293,7 +295,7 @@
                 });
                 $.ajax({
                     method: 'GET',
-                    url: "{{route('archive.search')}}",
+                    url: "{{route('letter.search')}}",
                     data: {
                         'query': query,
                     },
@@ -312,7 +314,7 @@
             }
             $(document).on('keyup', '#search', function() {
                 var query = $(this).val();
-                fetch_archive_data(query);
+                fetch_letter_data(query);
             });
         });
     </script> -->

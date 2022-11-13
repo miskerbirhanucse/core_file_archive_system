@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('department_id')->nullable();
+            $table->string('project_id');
             $table->timestamps();
         });
     }

@@ -8,7 +8,8 @@
             <div class="profile-desc">
                 <div class="profile-pic">
                     <div class="count-indicator">
-                        <img class="img-xs rounded-circle " src="{{asset('backend/asset/images/ic_profile.png')}}" alt="">
+                        <img class="img-xs rounded-circle " src="{{asset('backend/asset/images/ic_profile.png')}}"
+                            alt="">
                         <span class="count bg-success"></span>
                     </div>
                     <div class="profile-name">
@@ -17,7 +18,8 @@
                     </div>
                 </div>
                 <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
-                <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+                    aria-labelledby="profile-dropdown">
                     <a href="#" class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">
@@ -96,7 +98,8 @@
         </li>
         @endhasrole
         <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#purchase-basic" aria-expanded="false" aria-controls="purchase-basic">
+            <a class="nav-link" data-toggle="collapse" href="#purchase-basic" aria-expanded="false"
+                aria-controls="purchase-basic">
                 <span class="menu-icon bg-secondary">
                     <i class="mdi mdi-laptop"></i>
                 </span>
@@ -106,19 +109,23 @@
             <div class="collapse" id="purchase-basic">
                 <ul class="nav flex-column sub-menu">
                     @can('create request')
-                    <li class="nav-item" > <a class="nav-link" href="{{ route('purchase') }}">New Purchase</a></li>
-                    <li class="nav-item" > <a class="nav-link" href="{{ route('purchase.list')}}">Purchase List</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('purchase') }}">New Purchase</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('purchase.list')}}">Purchase List</a></li>
                     @endcan
                     @can('approve request')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('approve.page.purchase')}}">Approve Purchase</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('approve.page.purchase')}}">Approve
+                            Purchase</a></li>
                     @endcan
                     @can('authorize request')
-                    <li class="nav-item" > <a class="nav-link" href="{{route('authorize.page.purchase')}}">Authorize Purchase</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('authorize.page.purchase')}}">Authorize
+                            Purchase</a></li>
                     @endcan
                     @can('export request')
-                    <li class="nav-item" > <a class="nav-link" href="{{route('store.page.purchase')}}">Store Approve Purchase</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('store.page.purchase')}}">Store Approve
+                            Purchase</a></li>
 
-                    <li class="nav-item"> <a class="nav-link" href="{{route('store.list.purchase')}}">Store Purchase Export list</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('store.list.purchase')}}">Store Purchase
+                            Export list</a></li>
                     @endcan
                     @hasrole('Super-Admin')
                     <li class="nav-item"> <a class="nav-link" href="{{route('purchase.admin')}}"> Purchases</a></li>
@@ -139,22 +146,34 @@
                 <ul class="nav flex-column sub-menu">
                     @hasanyrole('Super-Admin|Secretary')
                     <li class="nav-item"><a class="nav-link" href="{{route('letter')}}">New Incoming Letter</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('letter.outgoing')}}">New Outgoing Letter</a></li>
-                    <li  class="nav-item"> <a class="nav-link" href="{{route('letter.list')}}">Letter List</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.list')}}">Incoming Letter List</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('letter.outgoing')}}">New Outgoing Letter</a>
+                    </li>
+
+                    </li>
+                    @endhasanyrole
+                    @hasanyrole('Head|Team Leader|Team|Secretary')
+                    <li class="nav-item"><a class="nav-link" href="{{route('outGoing.department')}}">Outgoing Letter</a>
                     @endhasanyrole
                     @hasanyrole('Head|Team Leader')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.manage')}}">Manage Incoming Letter</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.manage')}}">Manage Incoming
+                            Letter</a></li>
+
                     @endhasanyrole
                     @hasrole('Team')
-                    <li class="nav-item"><a class="nav-link" href="{{route('letter.letters')}}">Letters</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('letter.letters')}}">Incoming Letters</a></li>
                     @endhasrole
-                    @hasanyrole('GM')
-                    <li  class="nav-item"> <a class="nav-link" href="{{route('letter.gm.cc')}}">Manage Letters</a></li>
+                    @hasanyrole('GM|Super-Admin')
+                    <li class="nav-item"> <a class="nav-link" href="{{route('letter.gm.cc')}}">Manage Incoming
+                            Letters</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('outGoing.all')}}">All Outgoing Letter</a>
+                    </li>
                     @endhasanyrole
                 </ul>
             </div>
         </li>
-        @hasanyrole('Secretary|Super-Admin|Head|GM')
+
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#file" aria-expanded="false" aria-controls="file">
                 <span class="menu-icon bg-secondary">
@@ -166,22 +185,23 @@
             <div class="collapse" id="file">
                 <ul class="nav flex-column sub-menu">
 
-                    @hasrole('Secretary')
+                    @hasrole('Secretary|Super-Admin')
                     <li class="nav-item"> <a class="nav-link" href="{{route('archive.create')}}">Create Archive</a></li>
                     @endhasrole
 
-                    @hasrole('Head|GM|Secretary')
-                    <li class="nav-item" key="3"> <a class="nav-link" href="{{route('archive.list')}}">Archive List</a></li>
-                    @endhasrole
+                    <li class="nav-item" key="3"> <a class="nav-link" href="{{route('archive.list')}}">Archive List</a>
+                    </li>
+
                     @hasrole('Super-Admin')
-                    <li class="nav-item" key="4"> <a class="nav-link" href="{{route('show.archive.report')}}">Generate Report</a></li>
+                    <li class="nav-item" key="4"> <a class="nav-link" href="{{route('show.archive.report')}}">Generate
+                            Report</a></li>
                     @endhasrole
-                    @can('access request')
-                    <li class="nav-item" key="5"> <a class="nav-link" href="{{route('archive.admin')}}">Archives List</a></li>
-                    @endcan
+                    @hasanyrole('GM|Super-Admin')
+                    <li class="nav-item" key="5"> <a class="nav-link" href="{{route('archive.admin')}}">Archive
+                            Lists</a></li>
+                    @endhasanyrole
                 </ul>
             </div>
         </li>
-        @endhasanyrole
     </ul>
 </nav>

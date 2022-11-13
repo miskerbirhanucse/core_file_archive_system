@@ -132,6 +132,7 @@
                                     @hasrole('Super-Admin')
                                     <a type="button" href="{{ route('delete.purchase',['id'=>$purchase->id ])}}" class="btn btn-danger">Delete</a>
                                     @endhasrole
+                                  
                                 </td>
 
                             </tr>

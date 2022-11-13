@@ -28,6 +28,7 @@ class ProjectController extends Controller
         $project=Project::findOrFail($id);
         $project->name=$request->project_name;
         $project->department_id=$request->department_id;
+        $project->project_id=$request->project_id;
         $project->save();
         if($project){
             return redirect()->route('project.list')->with('success', 'Project is updated successfully');
@@ -39,10 +40,12 @@ class ProjectController extends Controller
         Validator::make($request->all(),[
             'project_name'=>'required',
             'department_id'=>'required',
+            'project_id'=>'required'
         ]);
         $result=Project::create([
             'name'=>$request->project_name,
             'department_id'=>$request->department_id,
+            'project_id'=>$request->project_id,
         ]);
         if($result){
             return redirect()->route('project.list')->with('success', 'Project is created successfully');
